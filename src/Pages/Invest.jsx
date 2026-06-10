@@ -40,9 +40,9 @@ export default function Invest() {
       {/* Conversion Hook - PITCH HUB */}
       <section style={styles.pitchHookSection}>
         <div className="container">
-          <div style={styles.pitchHookCard} className="glass-panel">
+          <div style={styles.pitchHookCard} className="glass-panel gold-border-glow">
             <div style={styles.pitchHookLeft}>
-              <div style={styles.pitchTag}>THE AI PITCH HUB</div>
+              <div style={{ ...styles.pitchTag, color: 'var(--accent-gold)' }}>THE AI PITCH HUB</div>
               <h2 style={styles.pitchTitle}>Are you a founder ready to raise or an investor seeking deals?</h2>
               <p style={styles.pitchDesc}>
                 Startups can submit a 3-minute video pitch and project deck to gain visibility. Accredited angel investors and venture funds can browse pre-vetted AI companies in our exclusive portfolio database.
@@ -54,7 +54,11 @@ export default function Invest() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="btn-primary"
-                style={styles.pitchBtn}
+                style={{ 
+                  ...styles.pitchBtn, 
+                  background: 'linear-gradient(135deg, var(--accent-gold) 0%, #d4af37 100%)',
+                  boxShadow: '0 4px 12px rgba(184, 134, 11, 0.2)'
+                }}
               >
                 Enter Pitch Hub →
               </a>
@@ -70,7 +74,11 @@ export default function Invest() {
           
           <div style={styles.offeringsGrid} className="grid-responsive-3">
             {offerings.map((item, idx) => (
-              <div key={idx} style={styles.offeringCard} className="glass-panel">
+              <div 
+                key={idx} 
+                style={styles.offeringCard} 
+                className={`glass-panel ${item.title === 'Capital Backing' ? 'gold-border-glow' : ''}`}
+              >
                 <div style={styles.offeringIcon}>{item.icon}</div>
                 <h3 style={styles.offeringTitle}>{item.title}</h3>
                 <p style={styles.offeringDesc}>{item.desc}</p>
@@ -83,7 +91,7 @@ export default function Invest() {
       {/* Call to Action Bar */}
       <section style={styles.ctaSection}>
         <div className="container">
-          <div style={styles.ctaCard} className="glass-panel">
+          <div style={styles.ctaCard} className="glass-panel gold-border-glow">
             <h2 style={styles.ctaTitle}>Let's talk capital allocation</h2>
             <p style={styles.ctaDesc}>
               Whether you are an institutional investor wishing to collaborate on cohort deal-flow, or a founder from outside our ecosystem looking for advisory, get in touch.
@@ -91,7 +99,11 @@ export default function Invest() {
             <button 
               onClick={() => handleOpenEnquiry('individual', 'I want to discuss investment opportunities.')}
               className="btn-primary" 
-              style={styles.ctaBtn}
+              style={{
+                ...styles.ctaBtn,
+                background: 'linear-gradient(135deg, var(--accent-gold) 0%, #d4af37 100%)',
+                boxShadow: '0 4px 12px rgba(184, 134, 11, 0.2)'
+              }}
             >
               Get in Touch with Investment Committee
             </button>

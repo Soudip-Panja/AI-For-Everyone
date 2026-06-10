@@ -62,13 +62,14 @@ export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
 
         {/* Right Side: CTAs & Actions */}
         <div style={styles.actionsContainer} className="desktop-nav">
-          <button style={styles.loginBtn} onClick={() => onOpenAuth('login')}>
+          <button style={styles.loginBtn} onClick={() => onOpenAuth('login')} className="navbar-login-btn">
             Log In
           </button>
-          <button style={styles.signupBtn} onClick={() => onOpenAuth('signup')}>
+          <button style={styles.signupBtn} onClick={() => onOpenAuth('signup')} className="navbar-signup-btn">
             Sign Up
           </button>
-          <button className="btn-primary" style={styles.enquiryBtn} onClick={onOpenEnquiry}>
+          <div style={styles.divider} />
+          <button className="navbar-enquire-btn" style={styles.enquiryBtn} onClick={onOpenEnquiry}>
             Enquire
           </button>
         </div>
@@ -110,6 +111,7 @@ export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
                   setMobileMenuOpen(false);
                   onOpenAuth('login');
                 }}
+                className="navbar-login-btn"
               >
                 Log In
               </button>
@@ -119,11 +121,13 @@ export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
                   setMobileMenuOpen(false);
                   onOpenAuth('signup');
                 }}
+                className="navbar-signup-btn"
               >
                 Sign Up
               </button>
+              <div style={styles.mobileDivider} />
               <button 
-                className="btn-primary" 
+                className="navbar-enquire-btn" 
                 style={styles.mobileEnquiryBtn} 
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -152,6 +156,55 @@ export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
         }
         .navbar-link-el:hover {
           color: var(--accent-secondary) !important;
+        }
+        .navbar-login-btn {
+          transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+          border-radius: 9999px;
+        }
+        .navbar-login-btn:hover {
+          color: var(--accent-secondary) !important;
+          transform: translateY(-2px);
+          background-color: rgba(29, 75, 124, 0.05) !important;
+          box-shadow: 0 4px 15px rgba(29, 75, 124, 0.15) !important;
+          border-color: rgba(29, 75, 124, 0.35) !important;
+          text-shadow: 0 0 6px rgba(29, 75, 124, 0.15);
+        }
+        .navbar-login-btn:active {
+          transform: translateY(0);
+        }
+        .navbar-signup-btn {
+          transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        }
+        .navbar-signup-btn:hover {
+          background-color: rgba(170, 124, 17, 0.07) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(170, 124, 17, 0.15) !important;
+        }
+        .navbar-signup-btn:active {
+          transform: translateY(0);
+        }
+        .navbar-enquire-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+          color: #ffffff !important;
+          font-weight: 600;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 4px 12px rgba(8, 17, 44, 0.1);
+          transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        }
+        .navbar-enquire-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(8, 17, 44, 0.22) !important;
+          filter: brightness(1.08);
+        }
+        .navbar-enquire-btn:active {
+          transform: translateY(0);
+        }
+        .navbar-enquire-btn::after {
+          content: none !important;
         }
       `}} />
     </nav>
@@ -243,10 +296,10 @@ const styles = {
     transition: 'color 0.2s',
   },
   signupBtn: {
-    background: 'var(--bg-secondary)',
-    border: '1px solid var(--border-color)',
+    background: 'transparent',
+    border: '1px solid var(--accent-gold)',
     borderRadius: '9999px',
-    color: 'var(--text-primary)',
+    color: 'var(--accent-gold)',
     fontSize: '0.925rem',
     fontWeight: '600',
     cursor: 'pointer',
@@ -315,10 +368,10 @@ const styles = {
     cursor: 'pointer',
   },
   mobileSignupBtn: {
-    background: 'var(--bg-secondary)',
-    border: '1px solid var(--border-color)',
+    background: 'transparent',
+    border: '1px solid var(--accent-gold)',
     borderRadius: '12px',
-    color: 'var(--text-primary)',
+    color: 'var(--accent-gold)',
     padding: '14px',
     fontSize: '1rem',
     fontWeight: '600',
@@ -328,5 +381,17 @@ const styles = {
     padding: '14px',
     fontSize: '1rem',
     borderRadius: '12px',
+  },
+  divider: {
+    width: '1px',
+    height: '22px',
+    backgroundColor: 'rgba(15, 23, 42, 0.22)',
+    alignSelf: 'center',
+  },
+  mobileDivider: {
+    height: '1px',
+    width: '100%',
+    backgroundColor: 'rgba(15, 23, 42, 0.22)',
+    margin: '4px 0',
   }
 };

@@ -15,13 +15,13 @@
   --bg-glass: rgba(255, 255, 255, 0.85);
   --bg-glass-hover: rgba(248, 250, 252, 0.95);
   
-  --accent-primary: #08112c; /* Thinkific Primary Dark Navy */
-  --accent-primary-rgb: 8, 17, 44;
-  --accent-secondary: #2b6cb0; /* Deep blue highlight */
-  --accent-secondary-rgb: 43, 108, 176;
+  --accent-primary: #040918; /* Darker Navy */
+  --accent-primary-rgb: 4, 9, 24;
+  --accent-secondary: #1d4b7c; /* Darker Blue Highlight */
+  --accent-secondary-rgb: 29, 75, 124;
   --accent-teal: #0f766e; /* Deep Teal */
-  --accent-gold: #b7791f; /* Warm Amber */
-  --accent-gold-rgb: 183, 121, 31;
+  --accent-gold: #aa7c11; /* Harder Premium Gold */
+  --accent-gold-rgb: 170, 124, 17;
   
   --border-color: rgba(15, 23, 42, 0.08);
   --border-color-hover: rgba(15, 23, 42, 0.16);
@@ -163,6 +163,8 @@ a {
 
 /* Glowing buttons */
 .btn-primary {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -175,17 +177,17 @@ a {
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(8, 17, 44, 0.15);
-  transition: all var(--transition-fast);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(8, 17, 44, 0.25);
-  filter: brightness(1.1);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(8, 17, 44, 0.25);
+  filter: brightness(1.15);
 }
 
 .btn-primary:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .btn-secondary {
@@ -779,4 +781,85 @@ a {
   transform: translateY(0);
 }
 
+/* Premium Gold Utilities */
+.gradient-gold-text {
+  background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #aa7c11 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gold-border {
+  border: 1px solid #d4af37 !important;
+}
+.gold-border-glow {
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.08) !important;
+}
+.gold-badge {
+  background-color: rgba(212, 175, 55, 0.1) !important;
+  color: #b8860b !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+}
 
+/* Shining Gold Button Utility */
+.btn-gold-shining {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #9e750f 0%, #d4af37 50%, #7c5c0a 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border: none !important;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(158, 117, 15, 0.25);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-gold-shining:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(158, 117, 15, 0.45);
+  filter: brightness(1.1);
+}
+
+.btn-gold-shining:active {
+  transform: translateY(0) scale(1);
+}
+
+/* Shimmer shine sweep animation */
+.btn-primary::after,
+.btn-gold-shining::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.btn-primary:hover::after,
+.btn-gold-shining:hover::after {
+  left: 150%;
+  transition: left 0.75s ease-in-out;
+}
+
+/* Arrow Slide Hover Animation */
+.btn-arrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}

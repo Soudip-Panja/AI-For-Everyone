@@ -86,9 +86,9 @@ export default function Build() {
             </div>
 
             {/* Hook 2: Pitch Hub */}
-            <div style={styles.hookCard} className="glass-panel">
+            <div style={styles.hookCard} className="glass-panel gold-border-glow">
               <div style={styles.hookHeader}>
-                <span style={styles.hookTag} style={{ color: 'var(--accent-gold)' }}>FUNDING PIPELINE</span>
+                <span style={{ ...styles.hookTag, color: 'var(--accent-gold)' }}>FUNDING PIPELINE</span>
                 <h3 style={styles.hookCardTitle}>Pitch Hub</h3>
               </div>
               <p style={styles.hookDesc}>
@@ -98,8 +98,12 @@ export default function Build() {
                 href="https://pitchub.aiforeveryone.ai/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="btn-secondary"
-                style={{ ...styles.hookBtn, border: '1px solid var(--accent-gold)' }}
+                className="btn-primary"
+                style={{ 
+                  ...styles.hookBtn, 
+                  background: 'linear-gradient(135deg, var(--accent-gold) 0%, #d4af37 100%)',
+                  boxShadow: '0 4px 12px rgba(184, 134, 11, 0.2)'
+                }}
               >
                 Access Pitch Hub →
               </a>
@@ -143,26 +147,26 @@ export default function Build() {
 
             {/* Haldia Stats Card */}
             <div style={styles.arenaRight}>
-              <div style={styles.statsCard} className="glass-panel">
-                <span style={styles.cardTag}>INAUGURAL cohort stats</span>
+              <div style={styles.statsCard} className="glass-panel gold-border-glow">
+                <span style={{ ...styles.cardTag, color: 'var(--accent-gold)' }}>INAUGURAL cohort stats</span>
                 <h3 style={styles.statsCardTitle}>Haldia Institute of Technology</h3>
                 <span style={styles.statsCardDate}>MAY 2026 • KOLKATA</span>
                 
                 <div style={styles.statList}>
                   <div style={styles.statItem}>
-                    <span style={styles.statVal}>700+</span>
+                    <span style={{ ...styles.statVal, color: 'var(--accent-gold)' }}>700+</span>
                     <span style={styles.statLabel}>Students Trained</span>
                   </div>
                   <div style={styles.statItem}>
-                    <span style={styles.statVal}>70</span>
+                    <span style={{ ...styles.statVal, color: 'var(--accent-gold)' }}>70</span>
                     <span style={styles.statLabel}>Working AI Products Shipped</span>
                   </div>
                   <div style={styles.statItem}>
-                    <span style={styles.statVal}>₹90,000+</span>
+                    <span style={{ ...styles.statVal, color: 'var(--accent-gold)' }}>₹90,000+</span>
                     <span style={styles.statLabel}>Cash Prizes Handed Out</span>
                   </div>
                   <div style={styles.statItem}>
-                    <span style={styles.statVal}>15</span>
+                    <span style={{ ...styles.statVal, color: 'var(--accent-gold)' }}>15</span>
                     <span style={styles.statLabel}>Builders Backed with Capital</span>
                   </div>
                 </div>

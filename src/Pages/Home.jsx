@@ -78,24 +78,56 @@ export default function Home() {
     <div style={styles.pageWrapper}>
       {/* Hero Section */}
       <section style={styles.heroSection}>
-        <div className="container" style={styles.heroGrid}>
+        {/* Background Video */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 1,
+            pointerEvents: 'none'
+          }}
+        >
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_161253_c72b1869-400f-45ed-ac0c-52f68c2ed5bd.mp4" type="video/mp4" />
+        </video>
+        {/* Horizontal Gradient Overlay */}
+        <div 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(to right, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0) 100%)',
+            zIndex: 2,
+            pointerEvents: 'none'
+          }}
+        />
+        <div className="container" style={{ ...styles.heroGrid, position: 'relative', zIndex: 3 }}>
           <div style={styles.heroLeft}>
             <div style={styles.heroTagline}>THE COMPLETE AI JOURNEY • ONE ECOSYSTEM</div>
             <h1 style={styles.heroHeading}>
               From your first <span style={styles.serifItalic}>prompt</span><br />
               to your first <span style={styles.serifItalic}>product</span><br />
-              to your first <span style={styles.serifItalic}>round</span>.
+              to your first <span className="serifItalic gradient-gold-text">round</span>.
             </h1>
             <p style={styles.heroDesc}>
               We don't just teach AI. We train active AI practitioners, mentor them through live builds, connect them to AI roles, and back the ones who launch companies. Scoped for schools, colleges, corporate teams, and individuals.
             </p>
             <div style={styles.heroCTAs}>
               <Link to="/learn" className="btn-primary" style={styles.heroBtn}>
-                Explore Programs →
+                Explore Programs <span className="btn-arrow">→</span>
               </Link>
               <button 
                 onClick={() => handleOpenEnquiry('individual', 'I would like to speak with someone about AI for Everyone.')}
-                className="btn-secondary" 
+                className="btn-gold-shining" 
                 style={styles.heroBtn}
               >
                 Request Consultation
@@ -104,28 +136,29 @@ export default function Home() {
           </div>
 
           <div style={styles.heroRight}>
-            <div style={styles.heroCard} className="glass-panel">
-              <h3 style={styles.heroCardTitle}>Central Platform Hub</h3>
-              <p style={styles.heroCardDesc}>
-                AI For Everyone connects four dedicated platforms. Learn, build, recruit, and fund AI companies in one compounding loop.
-              </p>
-              
-              <div style={styles.heroStatGrid}>
-                <div style={styles.heroStatItem}>
-                  <span style={styles.heroStatNum}>1,000+</span>
-                  <span style={styles.heroStatLabel}>Certified Practitioners</span>
-                </div>
-                <div style={styles.heroStatItem}>
-                  <span style={styles.heroStatNum}>70</span>
-                  <span style={styles.heroStatLabel}>Arena Cohort Teams</span>
-                </div>
-                <div style={styles.heroStatItem}>
-                  <span style={styles.heroStatNum}>11</span>
-                  <span style={styles.heroStatLabel}>Active Certifications</span>
-                </div>
-                <div style={styles.heroStatItem}>
-                  <span style={styles.heroStatNum}>15</span>
-                  <span style={styles.heroStatLabel}>Startups Backed</span>
+            <div style={{ width: '100%', maxWidth: '450px', margin: '0 auto' }}>
+              <div style={styles.heroCard} className="glass-panel">
+                <h3 style={styles.heroCardTitle}>Central Platform Hub</h3>
+                <p style={styles.heroCardDesc}>
+                  AI For Everyone connects four dedicated platforms. Learn, build, recruit, and fund AI companies in one compounding loop.
+                </p>
+                <div style={styles.heroStatGrid}>
+                  <div style={styles.heroStatItem}>
+                    <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>1,000+</span>
+                    <span style={styles.heroStatLabel}>Certified Practitioners</span>
+                  </div>
+                  <div style={styles.heroStatItem}>
+                    <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>70</span>
+                    <span style={styles.heroStatLabel}>Arena Cohort Teams</span>
+                  </div>
+                  <div style={styles.heroStatItem}>
+                    <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>11</span>
+                    <span style={styles.heroStatLabel}>Active Certifications</span>
+                  </div>
+                  <div style={styles.heroStatItem}>
+                    <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>15</span>
+                    <span style={styles.heroStatLabel}>Startups Backed</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -161,14 +194,15 @@ export default function Home() {
             {portals.map((portal) => (
               <div 
                 key={portal.name} 
+                className={portal.name === 'PITCH HUB' ? 'gold-border-glow' : ''}
                 style={{ 
                   ...styles.portalCard, 
                   backgroundColor: portal.bg, 
-                  borderColor: portal.borderColor 
+                  borderColor: portal.name === 'PITCH HUB' ? undefined : portal.borderColor 
                 }}
               >
                 <div>
-                  <div style={styles.portalTag}>{portal.name}</div>
+                  <div style={{ ...styles.portalTag, color: portal.name === 'PITCH HUB' ? 'var(--accent-gold)' : 'var(--accent-primary)' }}>{portal.name}</div>
                   <h3 style={styles.portalCardTitle}>{portal.name === 'LMS PORTAL' ? 'Coursework & Slides' : portal.name === 'JOBS PORTAL' ? 'Match & Recruit' : portal.name === 'PITCH HUB' ? 'Funding & Startups' : 'Buy & Sell Code'}</h3>
                   <p style={styles.portalDesc}>{portal.desc}</p>
                 </div>
@@ -176,8 +210,14 @@ export default function Home() {
                   href={portal.url} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="btn-secondary"
-                  style={styles.portalBtn}
+                  className={portal.name === 'PITCH HUB' ? 'btn-primary' : 'btn-secondary'}
+                  style={{
+                    ...styles.portalBtn,
+                    backgroundColor: portal.name === 'PITCH HUB' ? 'var(--accent-gold)' : '#ffffff',
+                    borderColor: portal.name === 'PITCH HUB' ? 'var(--accent-gold)' : '#cbd5e1',
+                    color: portal.name === 'PITCH HUB' ? '#ffffff' : 'var(--text-primary)',
+                    boxShadow: portal.name === 'PITCH HUB' ? '0 4px 12px rgba(184, 134, 11, 0.2)' : 'none'
+                  }}
                 >
                   {portal.actionText} →
                 </a>
@@ -259,7 +299,7 @@ export default function Home() {
               { num: '48 Hours', title: 'Proposal Turnaround', desc: 'Guaranteed delivery of custom training plans for enquiries.' }
             ].map((stat, idx) => (
               <div key={idx} style={styles.statCard}>
-                <span style={styles.statNumBig}>{stat.num}</span>
+                <span style={styles.statNumBig} className="gradient-gold-text">{stat.num}</span>
                 <h4 style={styles.statCardTitle}>{stat.title}</h4>
                 <p style={styles.statCardDesc}>{stat.desc}</p>
               </div>
@@ -277,8 +317,10 @@ const styles = {
     minHeight: '100vh',
   },
   heroSection: {
+    position: 'relative',
     padding: '80px 0 60px 0',
     backgroundColor: '#ffffff',
+    overflow: 'hidden',
   },
   heroGrid: {
     display: 'grid',

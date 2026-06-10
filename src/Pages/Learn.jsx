@@ -147,9 +147,9 @@ export default function Learn() {
       {/* Conversion Hook Block - LMS PORTAL */}
       <section style={styles.lmsHookSection}>
         <div className="container">
-          <div style={styles.lmsHookCard} className="glass-panel">
+          <div style={styles.lmsHookCard} className="glass-panel gold-border-glow">
             <div style={styles.lmsHookLeft}>
-              <div style={styles.lmsTag}>LEARNER LMS PORTAL</div>
+              <div style={styles.lmsTag} style={{ color: 'var(--accent-gold)' }}>LEARNER LMS PORTAL</div>
               <h2 style={styles.lmsTitle}>Ready to start your coursework?</h2>
               <p style={styles.lmsDesc}>
                 If you are already enrolled in any of our 11 certifications, click below to log in to the learning portal, access course slides, and submit your shippable Capstone projects.
@@ -195,7 +195,11 @@ export default function Learn() {
 
           <div style={styles.certsGrid} className="grid-responsive-3">
             {filteredCerts.map((cert) => (
-              <div key={cert.id} style={styles.certCard} className="glass-panel">
+              <div 
+                key={cert.id} 
+                style={styles.certCard} 
+                className={`glass-panel ${cert.id === 'AIE-LDR-004' ? 'gold-border-glow' : ''}`}
+              >
                 <div style={styles.cardHeader}>
                   <span style={styles.certCode}>{cert.id}</span>
                   <div style={styles.badgeContainer}>
@@ -204,8 +208,9 @@ export default function Learn() {
                         key={tIdx} 
                         style={{
                           ...styles.certBadge,
-                          backgroundColor: type === 'AI NATIVE' ? 'rgba(15, 118, 110, 0.1)' : type === 'AI BUILDER' ? 'rgba(43, 108, 176, 0.1)' : 'rgba(183, 121, 31, 0.1)',
+                          backgroundColor: type === 'AI NATIVE' ? 'rgba(15, 118, 110, 0.1)' : type === 'AI BUILDER' ? 'rgba(43, 108, 176, 0.1)' : 'rgba(184, 134, 11, 0.1)',
                           color: type === 'AI NATIVE' ? 'var(--accent-teal)' : type === 'AI BUILDER' ? 'var(--accent-secondary)' : 'var(--accent-gold)',
+                          border: type === 'AI LEADER' || cert.id === 'AIE-LDR-004' ? '1px solid rgba(184, 134, 11, 0.3)' : 'none'
                         }}
                       >
                         {type}
@@ -231,7 +236,15 @@ export default function Learn() {
                   >
                     ⬇ Brochure
                   </button>
-                  <button onClick={() => handleOpenEnquiry('individual', `I want to enquire about ${cert.title}`)} className="btn-primary" style={styles.enquireBtn}>
+                  <button 
+                    onClick={() => handleOpenEnquiry('individual', `I want to enquire about ${cert.title}`)} 
+                    className="btn-primary" 
+                    style={{ 
+                      ...styles.enquireBtn,
+                      background: cert.id === 'AIE-LDR-004' ? 'linear-gradient(135deg, var(--accent-gold) 0%, #d4af37 100%)' : undefined,
+                      boxShadow: cert.id === 'AIE-LDR-004' ? '0 4px 12px rgba(184, 134, 11, 0.2)' : undefined
+                    }}
+                  >
                     Enquire
                   </button>
                 </div>
@@ -264,14 +277,21 @@ export default function Learn() {
                 onClick={() => setActiveMethodTab(item.step)}
                 style={{
                   ...styles.stepNode,
-                  borderColor: activeMethodTab === item.step ? 'var(--accent-secondary)' : 'var(--border-color)',
-                  backgroundColor: activeMethodTab === item.step ? 'rgba(43, 108, 176, 0.05)' : '#ffffff'
+                  borderColor: activeMethodTab === item.step 
+                    ? (item.step === 3 ? 'var(--accent-gold)' : 'var(--accent-secondary)') 
+                    : 'var(--border-color)',
+                  backgroundColor: activeMethodTab === item.step 
+                    ? (item.step === 3 ? 'rgba(184, 134, 11, 0.05)' : 'rgba(43, 108, 176, 0.05)') 
+                    : '#ffffff'
                 }}
               >
                 <div style={styles.stepName}>{item.name}</div>
                 <div style={styles.stepDuration}>{item.duration}</div>
                 <div style={styles.stepQuote}>{item.quote}</div>
-                <div style={styles.stepTarget}>For: {item.target}</div>
+                <div style={{
+                  ...styles.stepTarget,
+                  color: item.step === 3 ? 'var(--accent-gold)' : 'var(--accent-teal)'
+                }}>For: {item.target}</div>
               </div>
             ))}
           </div>

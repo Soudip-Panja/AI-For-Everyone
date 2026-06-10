@@ -123,8 +123,11 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Bar */}
-        <div style={styles.bottomBar}>
+      </div>
+
+      {/* Bottom Bar */}
+      <div style={styles.bottomBarOuter}>
+        <div style={styles.bottomBarContainer}>
           <p style={styles.copyright}>
             © 2026 AI For Everyone. Powered by InTime IT Services Pvt. Ltd.
           </p>
@@ -150,7 +153,7 @@ export default function Footer() {
 
 const styles = {
   footer: {
-    backgroundColor: '#08112c', /* Match thinkific dark navy footer */
+    backgroundColor: '#0a132c', /* Slightly lighter solid dark navy */
     borderTop: '1px solid rgba(255,255,255,0.07)',
     padding: '72px 0 0 0',
   },
@@ -295,9 +298,15 @@ const styles = {
   },
 
   /* Bottom Bar */
-  bottomBar: {
-    borderTop: '1px solid rgba(255,255,255,0.06)',
-    padding: '24px 0',
+  bottomBarOuter: {
+    backgroundColor: '#050a18', /* Slightly darker than main footer background */
+    borderTop: '1px solid rgba(255,255,255,0.05)',
+  },
+  bottomBarContainer: {
+    width: '100%',
+    maxWidth: '1280px',
+    margin: '0 auto',
+    padding: '24px 32px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -307,7 +316,7 @@ const styles = {
   copyright: {
     fontFamily: "'JetBrains Mono', monospace",
     fontSize: '0.72rem',
-    color: 'rgba(255,255,255,0.3)',
+    color: 'rgba(255, 255, 255, 0.45)',
     lineHeight: '1.55',
     margin: 0,
     maxWidth: '300px',
@@ -315,7 +324,7 @@ const styles = {
   trademark: {
     fontFamily: "'JetBrains Mono', monospace",
     fontSize: '0.72rem',
-    color: 'rgba(255,255,255,0.3)',
+    color: 'rgba(255, 255, 255, 0.45)',
     lineHeight: '1.55',
     margin: 0,
     maxWidth: '500px',
