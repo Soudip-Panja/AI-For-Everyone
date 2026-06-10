@@ -1,37 +1,46 @@
+@font-face {
+  font-family: "PP Writer";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: fallback;
+  src: url(https://www.thinkific.com/wp-content/themes/thinkific/assets/fonts/PPWriter/Medium/PPWriter-Medium.woff) format('woff');
+  font-stretch: normal;
+}
+
 :root {
-  /* Colors */
-  --bg-primary: #08090d;
-  --bg-secondary: #0f111a;
-  --bg-card: #141724;
-  --bg-glass: rgba(15, 17, 26, 0.7);
-  --bg-glass-hover: rgba(20, 23, 36, 0.85);
+  /* Colors - Light Theme default */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --bg-glass-hover: rgba(248, 250, 252, 0.95);
   
-  --accent-primary: #7c3aed; /* Violet */
-  --accent-primary-rgb: 124, 58, 237;
-  --accent-secondary: #6366f1; /* Indigo */
-  --accent-secondary-rgb: 99, 102, 241;
-  --accent-teal: #14b8a6; /* Teal */
-  --accent-gold: #f59e0b; /* Amber */
-  --accent-gold-rgb: 245, 158, 11;
+  --accent-primary: #08112c; /* Thinkific Primary Dark Navy */
+  --accent-primary-rgb: 8, 17, 44;
+  --accent-secondary: #2b6cb0; /* Deep blue highlight */
+  --accent-secondary-rgb: 43, 108, 176;
+  --accent-teal: #0f766e; /* Deep Teal */
+  --accent-gold: #b7791f; /* Warm Amber */
+  --accent-gold-rgb: 183, 121, 31;
   
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-color-hover: rgba(255, 255, 255, 0.16);
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-color-hover: rgba(15, 23, 42, 0.16);
   
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
 
   /* Theme variables for new Hero section */
-  --background: 260 87% 3%;
-  --foreground: 40 6% 95%;
-  --hero-sub-text: 40 6% 82%;
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --hero-sub-text: 215.4 16.3% 46.9%;
   
   /* Fonts */
   --font-sans: 'Outfit', sans-serif;
   --font-serif: 'Playfair Display', serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-body: 'Geist Sans', sans-serif;
-  --font-headline: 'General Sans', sans-serif;
+  --font-headline: "PP Writer", var(--font-serif);
   
   /* Transitions */
   --transition-fast: 0.2s ease;
@@ -42,28 +51,14 @@
   --max-width: 1280px;
 }
 
-[data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-card: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.75);
-  --bg-glass-hover: rgba(248, 250, 252, 0.9);
-  
-  --border-color: rgba(15, 23, 42, 0.08);
-  --border-color-hover: rgba(15, 23, 42, 0.16);
-  
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
+.glow-blur-1 {
+  background: radial-gradient(circle, rgba(43, 108, 176, 0.04) 0%, transparent 70%);
 }
 
-[data-theme="light"] .glow-blur-1 {
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
+.glow-blur-2 {
+  background: radial-gradient(circle, rgba(183, 121, 31, 0.03) 0%, transparent 70%);
 }
 
-[data-theme="light"] .glow-blur-2 {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
-}
 
 
 /* Reset & Base Styling */
@@ -92,22 +87,22 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 5px;
-  border: 2px solid var(--bg-primary);
+  border: 2px solid var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
+  font-family: var(--font-headline), var(--font-sans);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -134,13 +129,13 @@ a {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #f8fafc 30%, #94a3b8 100%);
+  background: linear-gradient(135deg, var(--accent-primary) 30%, var(--accent-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradient-accent-text {
-  background: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
+  background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-teal) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -157,13 +152,13 @@ a {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
   border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
   transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .glass-panel:hover {
   border-color: var(--border-color-hover);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.08);
 }
 
 /* Glowing buttons */
@@ -179,13 +174,13 @@ a {
   border-radius: 9999px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 20px rgba(8, 17, 44, 0.15);
   transition: all var(--transition-fast);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 6px 25px rgba(8, 17, 44, 0.25);
   filter: brightness(1.1);
 }
 
@@ -209,7 +204,7 @@ a {
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(8, 17, 44, 0.04);
   border-color: var(--text-secondary);
 }
 

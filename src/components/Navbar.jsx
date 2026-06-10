@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) return savedTheme;
-      return 'dark'; // Default theme
-    }
-    return 'dark';
-  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,64 +17,51 @@ export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Update theme document attribute
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
-
   const navLinks = [
-    { label: 'Learn', href: '#learn' },
-    { label: 'Build', href: '#build' },
-    { label: 'Hire', href: '#hire' },
-    { label: 'Invest', href: '#invest' },
-    { label: 'Adopt', href: '#adopt' },
-    { label: 'Method', href: '#method' },
-    { label: 'Industries', href: '#industries' },
+    { label: 'Learn', to: '/learn' },
+    { label: 'Build', to: '/build' },
+    { label: 'Hire', to: '/hire' },
+    { label: 'Invest', to: '/invest' },
+    { label: 'Adopt', to: '/adopt' },
   ];
 
   return (
     <nav style={{
       ...styles.navbar,
-      backgroundColor: scrolled ? 'var(--bg-glass)' : 'transparent',
-      borderBottom: scrolled ? '1px solid var(--border-color)' : '1px solid transparent',
-      boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.15)' : 'none',
+      backgroundColor: scrolled ? 'var(--bg-glass)' : 'rgba(255, 255, 255, 0.95)',
+      borderBottom: '1px solid var(--border-color)',
+      boxShadow: scrolled ? '0 4px 20px rgba(0, 0, 0, 0.04)' : 'none',
     }} className="navbar-transition">
       <div style={styles.container}>
         {/* Left Side: Brand Logo & Tagline */}
-        <a href="/" style={styles.brandContainer}>
+        <Link to="/" style={styles.brandContainer}>
           <div style={styles.logoBadge}>AI</div>
           <div style={styles.logoTextContainer}>
             <span style={styles.logoText}>AI for everyone</span>
             <span style={styles.logoTagline}>LEARN. BUILD. HIRE. INVEST.</span>
           </div>
-        </a>
+        </Link>
 
         {/* Center: Navigation Links */}
         <div style={styles.navLinksContainer} className="desktop-nav">
           {navLinks.map((link) => (
-            <a key={link.label} href={link.href} style={styles.navLink}>
+            <NavLink 
+              key={link.label} 
+              to={link.to} 
+              style={({ isActive }) => ({
+                ...styles.navLink,
+                color: isActive ? 'var(--accent-secondary)' : 'var(--text-secondary)',
+                fontWeight: isActive ? '700' : '500',
+              })}
+              className="navbar-link-el"
+            >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </div>
 
         {/* Right Side: CTAs & Actions */}
         <div style={styles.actionsContainer} className="desktop-nav">
-          {/* Theme Switcher Button */}
-          <button 
-            onClick={toggleTheme} 
-            style={styles.themeToggleBtn} 
-            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-            aria-label="Toggle visual theme"
-          >
-            {theme === 'dark' ? '☀️' : '🌙'}
-          </button>
-          
           <button style={styles.loginBtn} onClick={() => onOpenAuth('login')}>
             Log In
           </button>
@@ -100,9 +80,9 @@ export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
           aria-label="Toggle menu"
           className="mobile-hamburger"
         >
-          <div style={{...styles.bar, transform: mobileMenuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none'}} />
-          <div style={{...styles.bar, opacity: mobileMenuOpen ? 0 : 1}} />
-          <div style={{...styles.bar, transform: mobileMenuOpen ? 'rotate(-45deg) translate(7px, -7px)' : 'none'}} />
+          <div style={{...styles.bar, backgroundColor: 'var(--text-primary)', transform: mobileMenuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none'}} />
+          <div style={{...styles.bar, backgroundColor: 'var(--text-primary)', opacity: mobileMenuOpen ? 0 : 1}} />
+          <div style={{...styles.bar, backgroundColor: 'var(--text-primary)', transform: mobileMenuOpen ? 'rotate(-45deg) translate(7px, -7px)' : 'none'}} />
         </button>
       </div>
 
@@ -111,19 +91,19 @@ export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
         <div style={styles.mobileMenu} className="animate-fade-in">
           <div style={styles.mobileLinks}>
             {navLinks.map((link) => (
-              <a 
+              <NavLink 
                 key={link.label} 
-                href={link.href} 
-                style={styles.mobileLink} 
+                to={link.to} 
+                style={({ isActive }) => ({
+                  ...styles.mobileLink,
+                  color: isActive ? 'var(--accent-secondary)' : 'var(--text-secondary)',
+                })}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
-              </a>
+              </NavLink>
             ))}
             <div style={styles.mobileActions}>
-              <button style={styles.mobileThemeToggleBtn} onClick={toggleTheme}>
-                Theme: {theme === 'dark' ? 'Light Mode ☀️' : 'Dark Mode 🌙'}
-              </button>
               <button 
                 style={styles.mobileLoginBtn} 
                 onClick={() => {
@@ -170,6 +150,9 @@ export default function Navbar({ onOpenEnquiry, onOpenAuth }) {
           .desktop-nav { display: flex !important; }
           .mobile-hamburger { display: none !important; }
         }
+        .navbar-link-el:hover {
+          color: var(--accent-secondary) !important;
+        }
       `}} />
     </nav>
   );
@@ -213,16 +196,17 @@ const styles = {
     color: '#ffffff',
     fontWeight: '800',
     fontSize: '0.95rem',
-    boxShadow: '0 0 15px rgba(124, 58, 237, 0.4)',
+    boxShadow: '0 4px 12px rgba(8, 17, 44, 0.1)',
   },
   logoTextContainer: {
     display: 'flex',
     flexDirection: 'column',
   },
   logoText: {
+    fontFamily: '"PP Writer", var(--font-serif)',
     fontSize: '1.25rem',
-    fontWeight: '800',
-    color: 'var(--text-primary)',
+    fontWeight: '700',
+    color: 'var(--accent-primary)',
     letterSpacing: '-0.01em',
   },
   logoTagline: {
@@ -240,32 +224,13 @@ const styles = {
   },
   navLink: {
     fontSize: '0.925rem',
-    fontWeight: '500',
-    color: 'var(--text-secondary)',
+    textDecoration: 'none',
     transition: 'color 0.2s',
-    '&:hover': {
-      color: 'var(--text-primary)',
-    }
   },
   actionsContainer: {
     display: 'flex',
     alignItems: 'center',
     gap: '16px',
-  },
-  themeToggleBtn: {
-    background: 'none',
-    border: 'none',
-    fontSize: '1.25rem',
-    cursor: 'pointer',
-    padding: '6px',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'transform 0.2s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    }
   },
   loginBtn: {
     background: 'none',
@@ -308,7 +273,6 @@ const styles = {
   bar: {
     width: '100%',
     height: '2px',
-    backgroundColor: 'var(--text-primary)',
     transition: 'all 0.3s',
   },
   mobileMenu: {
@@ -330,26 +294,15 @@ const styles = {
   mobileLink: {
     fontSize: '1.25rem',
     fontWeight: '600',
-    color: 'var(--text-secondary)',
     borderBottom: '1px solid var(--border-color)',
     paddingBottom: '12px',
+    textDecoration: 'none',
   },
   mobileActions: {
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',
     marginTop: '20px',
-  },
-  mobileThemeToggleBtn: {
-    background: 'var(--bg-secondary)',
-    border: '1px solid var(--border-color)',
-    borderRadius: '12px',
-    color: 'var(--text-primary)',
-    padding: '14px',
-    fontSize: '1rem',
-    fontWeight: '600',
-    cursor: 'pointer',
-    textAlign: 'center',
   },
   mobileLoginBtn: {
     background: 'none',

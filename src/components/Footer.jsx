@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -70,20 +71,16 @@ export default function Footer() {
             <div style={styles.colLabel}>NAVIGATE</div>
             <ul style={styles.navList}>
               {[
-                { label: 'Learn (Certifications)', href: '#learn' },
-                { label: 'Build (Innovation Arena)', href: '#arena' },
-                { label: 'Hire (AI Jobs · Talent Pipeline)', href: '#hire' },
-                { label: 'Invest (Pitch Hub)', href: '#invest' },
-                { label: 'Adopt (AI Adoption Services)', href: '#adopt-services' },
-                { label: 'Manifesto', href: '#manifesto' },
-                { label: 'Press / Media kit', href: '#press' },
-                { label: 'Community', href: '#community' },
-                { label: 'Partners', href: '#partner' },
+                { label: 'Learn (Certifications)', to: '/learn' },
+                { label: 'Build (Innovation Arena)', to: '/build' },
+                { label: 'Hire (AI Jobs Portal)', to: '/hire' },
+                { label: 'Invest (Pitch Hub)', to: '/invest' },
+                { label: 'Adopt (Adoption Services)', to: '/adopt' },
               ].map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} style={styles.navLink} className="footer-nav-link">
+                  <Link to={item.to} style={styles.navLink} className="footer-nav-link">
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -153,7 +150,7 @@ export default function Footer() {
 
 const styles = {
   footer: {
-    backgroundColor: '#0d0f1c',
+    backgroundColor: '#08112c', /* Match thinkific dark navy footer */
     borderTop: '1px solid rgba(255,255,255,0.07)',
     padding: '72px 0 0 0',
   },
@@ -185,11 +182,11 @@ const styles = {
     width: '44px',
     height: '44px',
     borderRadius: '10px',
-    background: 'linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)',
+    background: 'linear-gradient(135deg, var(--accent-secondary) 0%, #3182ce 100%)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 0 18px rgba(124,58,237,0.35)',
+    boxShadow: '0 4px 12px rgba(43,108,176,0.35)',
     flexShrink: 0,
   },
   logoIconText: {
@@ -199,6 +196,7 @@ const styles = {
     letterSpacing: '-0.02em',
   },
   logoName: {
+    fontFamily: '"PP Writer", var(--font-serif)',
     color: '#ffffff',
     fontSize: '1.25rem',
     fontWeight: '700',
