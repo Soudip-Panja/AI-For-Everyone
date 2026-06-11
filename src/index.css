@@ -863,3 +863,139 @@ a {
 .btn-primary:hover .btn-arrow {
   transform: translateX(4px);
 }
+
+/* Hero Heading Sequential Animation */
+.anim-shine-text {
+  display: inline-block;
+  background: linear-gradient(90deg, #040918 0%, #040918 38%, #3182ce 50%, #040918 62%, #040918 100%);
+  background-size: 200% auto;
+  background-position: 200% center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.anim-gold-text {
+  display: inline-block;
+  background-size: 200% auto;
+  background-position: 200% center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Timed Animation Classes (11s Loop: 7.2s animation sequence + 3.8s pause) */
+.anim-line-1-text {
+  animation: line1Shine 11s infinite linear;
+}
+.anim-line-1-gold {
+  animation: line1Gold 11s infinite linear;
+}
+
+.anim-line-2-text {
+  animation: line2Shine 11s infinite linear;
+}
+.anim-line-2-gold {
+  animation: line2Gold 11s infinite linear;
+}
+
+.anim-line-3-text {
+  animation: line3Shine 11s infinite linear;
+}
+.anim-line-3-gold {
+  animation: line3Gold 11s infinite linear;
+}
+
+/* Keyframe Timelines */
+@keyframes line1Shine {
+  0% { background-position: 200% center; }
+  11% { background-position: -200% center; }
+  11.1%, 100% { background-position: -200% center; }
+}
+
+@keyframes line1Gold {
+  0%, 11% {
+    background: linear-gradient(90deg, #040918 0%, #040918 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    background-position: center;
+  }
+  11.1% {
+    background: linear-gradient(90deg, #aa7c11 0%, #aa7c11 35%, #fff 50%, #aa7c11 65%, #aa7c11 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    background-position: 200% center;
+  }
+  16.5% { background-position: 0% center; }
+  21.9% { background-position: -200% center; }
+  22%, 100% {
+    background: linear-gradient(135deg, #9e750f 0%, #d4af37 50%, #7c5c0a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 100% auto;
+  }
+}
+
+@keyframes line2Shine {
+  0%, 22% { background-position: 200% center; }
+  33% { background-position: -200% center; }
+  33.1%, 100% { background-position: -200% center; }
+}
+
+@keyframes line2Gold {
+  0%, 33% {
+    background: linear-gradient(90deg, #040918 0%, #040918 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    background-position: center;
+  }
+  33.1% {
+    background: linear-gradient(90deg, #aa7c11 0%, #aa7c11 35%, #fff 50%, #aa7c11 65%, #aa7c11 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    background-position: 200% center;
+  }
+  38.5% { background-position: 0% center; }
+  43.9% { background-position: -200% center; }
+  44%, 100% {
+    background: linear-gradient(135deg, #9e750f 0%, #d4af37 50%, #7c5c0a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 100% auto;
+  }
+}
+
+@keyframes line3Shine {
+  0%, 44% { background-position: 200% center; }
+  55% { background-position: -200% center; }
+  55.1%, 100% { background-position: -200% center; }
+}
+
+@keyframes line3Gold {
+  0%, 55% {
+    background: linear-gradient(90deg, #040918 0%, #040918 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    background-position: center;
+  }
+  55.1% {
+    background: linear-gradient(90deg, #aa7c11 0%, #aa7c11 35%, #fff 50%, #aa7c11 65%, #aa7c11 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    background-position: 200% center;
+  }
+  60.5% { background-position: 0% center; }
+  65.9% { background-position: -200% center; }
+  66%, 100% {
+    background: linear-gradient(135deg, #9e750f 0%, #d4af37 50%, #7c5c0a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 100% auto;
+  }
+}

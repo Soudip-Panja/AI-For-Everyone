@@ -114,9 +114,9 @@ export default function Home() {
           <div style={styles.heroLeft}>
             <div style={styles.heroTagline}>THE COMPLETE AI JOURNEY • ONE ECOSYSTEM</div>
             <h1 style={styles.heroHeading}>
-              From your first <span style={styles.serifItalic}>prompt</span><br />
-              to your first <span style={styles.serifItalic}>product</span><br />
-              to your first <span className="serifItalic gradient-gold-text">round</span>.
+              <span className="anim-shine-text anim-line-1-text">From your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-1-gold">prompt</span><br />
+              <span className="anim-shine-text anim-line-2-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-2-gold">product</span><br />
+              <span className="anim-shine-text anim-line-3-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-3-gold">round.</span>
             </h1>
             <p style={styles.heroDesc}>
               We don't just teach AI. We train active AI practitioners, mentor them through live builds, connect them to AI roles, and back the ones who launch companies. Scoped for schools, colleges, corporate teams, and individuals.
