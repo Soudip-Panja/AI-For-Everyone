@@ -82,7 +82,7 @@ export default function PrivacyPolicy() {
 
     const observerOptions = {
       root: null,
-      rootMargin: "-120px 0px -50% 0px", // Adjust for header offset
+      rootMargin: "-140px 0px -75% 0px", // Trigger when top of section enters scroll zone below navbar
       threshold: 0.05,
     };
 
@@ -105,7 +105,7 @@ export default function PrivacyPolicy() {
   const handleScrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
-      const offset = 110; // Sticky header offset
+      const offset = 130; // Sticky header offset
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = el.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -136,7 +136,7 @@ export default function PrivacyPolicy() {
           </Link>
           
           <h1 style={styles.mainTitle} className="privacy-title">
-            Privacy Policy
+            <span className="gradient-gold-text">Privacy Policy</span>
           </h1>
           
           <p style={styles.subTitle}>
@@ -153,7 +153,7 @@ export default function PrivacyPolicy() {
             </div>
             <span style={styles.metaSeparator}>|</span>
             <div style={styles.metaItem}>
-              <span>Platform: <strong>InTime</strong></span>
+              <span>Platform: <strong>AI for Everyone</strong></span>
             </div>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function PrivacyPolicy() {
               <section
                 key={sec.id}
                 id={sec.id}
-                className="policy-card"
+                className="glass-panel policy-card"
               >
                 <h2 style={styles.cardTitle}>
                   {sec.number && (
@@ -219,7 +219,7 @@ export default function PrivacyPolicy() {
         .privacy-sidebar {
           width: 280px;
           position: sticky;
-          top: 110px;
+          top: 130px;
           flex-shrink: 0;
           display: flex;
           flex-direction: column;
@@ -253,28 +253,25 @@ export default function PrivacyPolicy() {
           background: rgba(0, 0, 0, 0.02);
         }
         .sidebar-link.active {
-          color: #0099ff;
-          border-left-color: #0099ff;
+          color: var(--accent-gold);
+          border-left-color: var(--accent-gold);
           font-weight: 600;
-          background: rgba(0, 153, 255, 0.03);
+          background: rgba(170, 124, 17, 0.04);
         }
         .policy-card {
-          background: #f8fafc;
-          border: 1px solid var(--border-color);
-          border-radius: 16px;
-          padding: 40px;
-          scroll-margin-top: 110px;
-          transition: all 0.3s ease;
+          scroll-margin-top: 130px;
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          padding: 40px !important;
         }
         .policy-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.03);
-          border-color: rgba(0, 153, 255, 0.2);
+          transform: translateY(-4px) scale(1.005);
+          border-color: rgba(212, 175, 55, 0.4) !important;
+          box-shadow: 0 12px 40px rgba(212, 175, 55, 0.08) !important;
         }
         .privacy-back-link {
           display: inline-flex;
           align-items: center;
-          color: var(--accent-secondary);
+          color: var(--text-secondary);
           font-size: 0.95rem;
           font-weight: 600;
           text-decoration: none;
@@ -283,7 +280,7 @@ export default function PrivacyPolicy() {
         }
         .privacy-back-link:hover {
           transform: translateX(-4px);
-          color: #0099ff;
+          color: var(--accent-gold);
         }
         
         @media (max-width: 1024px) {
@@ -316,7 +313,7 @@ export default function PrivacyPolicy() {
           }
           .sidebar-link.active {
             border-left-color: transparent;
-            border-bottom-color: #0099ff;
+            border-bottom-color: var(--accent-gold);
             background: transparent;
           }
         }
@@ -337,7 +334,7 @@ const styles = {
     right: 0,
     width: '600px',
     height: '600px',
-    background: 'radial-gradient(circle at top right, rgba(0, 153, 255, 0.05) 0%, transparent 70%)',
+    background: 'radial-gradient(circle at top right, rgba(170, 124, 17, 0.04) 0%, transparent 70%)',
     pointerEvents: 'none',
     zIndex: 0,
   },
@@ -350,7 +347,7 @@ const styles = {
   mainTitle: {
     fontSize: '3.5rem',
     fontWeight: '800',
-    color: '#0099ff',
+    color: 'var(--accent-primary)',
     marginBottom: '20px',
     letterSpacing: '-0.02em',
     fontFamily: 'var(--font-headline)',
@@ -367,7 +364,7 @@ const styles = {
     alignItems: 'center',
     gap: '16px',
     fontSize: '0.95rem',
-    color: '#64748b',
+    color: 'var(--text-muted)',
     flexWrap: 'wrap',
   },
   metaItem: {
@@ -376,10 +373,10 @@ const styles = {
     gap: '8px',
   },
   metaIcon: {
-    color: '#0099ff',
+    color: 'var(--accent-gold)',
   },
   metaSeparator: {
-    color: 'rgba(0, 0, 0, 0.1)',
+    color: 'var(--border-color)',
   },
   divider: {
     border: 'none',
@@ -390,16 +387,16 @@ const styles = {
   cardTitle: {
     fontSize: '1.5rem',
     fontWeight: '700',
-    color: 'var(--text-primary)',
+    color: 'var(--accent-secondary)',
     marginBottom: '20px',
     fontFamily: 'var(--font-headline)',
   },
   cardTitleNumber: {
-    color: '#0099ff',
+    color: 'var(--accent-gold)',
     marginRight: '8px',
   },
   slash: {
-    color: 'rgba(0, 153, 255, 0.4)',
+    color: 'rgba(170, 124, 17, 0.4)',
     fontWeight: '300',
   },
   paragraph: {
