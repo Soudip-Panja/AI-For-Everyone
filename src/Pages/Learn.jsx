@@ -129,13 +129,46 @@ export default function Learn() {
     alert(`Your brochure download for "${certTitle}" has been scheduled. Thank you for your interest!`);
   };
 
+  const getEnquireAudience = (cert) => {
+    if (activeCertTab === 'Corporates') return 'corporate';
+    if (activeCertTab === 'Schools') return 'school';
+    if (activeCertTab === 'Colleges') return 'college';
+    if (activeCertTab === 'Individuals') return 'individual';
+    
+    const isCorporateDefault = ['AIE-LDR-004', 'AIE-FIN-005', 'AIE-MED-006', 'AIE-LAW-007', 'AIE-SAL-008', 'AIE-MKT-009', 'AIE-PRF-010', 'AIE-HR-011'].includes(cert.id);
+    return isCorporateDefault ? 'corporate' : 'individual';
+  };
+
+  const getEnquireButtonStyle = (cert) => {
+    const audience = getEnquireAudience(cert);
+    if (audience === 'corporate') {
+      return {
+        ...styles.enquireBtn,
+        background: 'linear-gradient(135deg, var(--accent-gold) 0%, #d4af37 100%)',
+        boxShadow: '0 4px 12px rgba(184, 134, 11, 0.2)'
+      };
+    } else if (audience === 'school') {
+      return {
+        ...styles.enquireBtn,
+        background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)',
+        boxShadow: '0 4px 12px rgba(30, 64, 175, 0.2)'
+      };
+    } else {
+      return {
+        ...styles.enquireBtn,
+        background: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%)',
+        boxShadow: '0 4px 12px rgba(4, 9, 24, 0.15)'
+      };
+    }
+  };
+
   return (
     <div style={styles.pageWrapper}>
       {/* Header Area */}
       <section style={styles.headerSection}>
         <div className="container">
           <div style={styles.headerContent}>
-            <span style={styles.preTitle}>01 • THE TRAINING PROGRAMMES</span>
+            <span style={styles.preTitle}>THE TRAINING PROGRAMMES</span>
             <h1 style={styles.mainTitle}>Expand your potential with <br /><span className="gradient-text">AI Certifications</span></h1>
             <p style={styles.subTitle}>
               We train active AI practitioners. Every certification requires building and shipping real products, guided by standard frameworks and reviewed by industry experts.
@@ -194,62 +227,65 @@ export default function Learn() {
           </div>
 
           <div style={styles.certsGrid} className="grid-responsive-3">
-            {filteredCerts.map((cert) => (
-              <div 
-                key={cert.id} 
-                style={styles.certCard} 
-                className={`glass-panel ${cert.id === 'AIE-LDR-004' ? 'gold-border-glow' : ''}`}
-              >
-                <div style={styles.cardHeader}>
-                  <span style={styles.certCode}>{cert.id}</span>
-                  <div style={styles.badgeContainer}>
-                    {cert.types.map((type, tIdx) => (
-                      <span 
-                        key={tIdx} 
-                        style={{
-                          ...styles.certBadge,
-                          backgroundColor: type === 'AI NATIVE' ? 'rgba(15, 118, 110, 0.1)' : type === 'AI BUILDER' ? 'rgba(43, 108, 176, 0.1)' : 'rgba(184, 134, 11, 0.1)',
-                          color: type === 'AI NATIVE' ? 'var(--accent-teal)' : type === 'AI BUILDER' ? 'var(--accent-secondary)' : 'var(--accent-gold)',
-                          border: type === 'AI LEADER' || cert.id === 'AIE-LDR-004' ? '1px solid rgba(184, 134, 11, 0.3)' : 'none'
-                        }}
-                      >
-                        {type}
-                      </span>
-                    ))}
+            {filteredCerts.map((cert) => {
+              const audience = getEnquireAudience(cert);
+              const cardClass = audience === 'corporate' 
+                ? 'corporate-card' 
+                : audience === 'school' 
+                ? 'school-card' 
+                : 'standard-card';
+              return (
+                <div 
+                  key={cert.id} 
+                  className={`cert-card-interactive ${cardClass}`}
+                >
+                  <div style={styles.cardHeader}>
+                    <span style={styles.certCode}>{cert.id}</span>
+                    <div style={styles.badgeContainer}>
+                      {cert.types.map((type, tIdx) => (
+                        <span 
+                          key={tIdx} 
+                          style={{
+                            ...styles.certBadge,
+                            backgroundColor: type === 'AI NATIVE' ? 'rgba(15, 118, 110, 0.1)' : type === 'AI BUILDER' ? 'rgba(43, 108, 176, 0.1)' : 'rgba(184, 134, 11, 0.1)',
+                            color: type === 'AI NATIVE' ? 'var(--accent-teal)' : type === 'AI BUILDER' ? 'var(--accent-secondary)' : 'var(--accent-gold)',
+                            border: type === 'AI LEADER' || cert.id === 'AIE-LDR-004' ? '1px solid rgba(184, 134, 11, 0.3)' : 'none'
+                          }}
+                        >
+                          {type}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <h3 style={styles.certCardTitle}>{cert.title}</h3>
+                  <p style={styles.certDesc}>{cert.desc}</p>
+                  <div style={styles.certDetailsRow}>🕒 {cert.duration}</div>
+                  <p style={styles.certQuote}>{cert.quote}</p>
+                  
+                  <div style={styles.certShipContainer}>
+                    <div style={styles.certShipTitle}>YOU'LL SHIP</div>
+                    <p style={styles.certShipText}>{cert.ship}</p>
+                  </div>
+
+                  <div style={styles.cardFooter}>
+                    <button 
+                      onClick={() => handleDownloadBrochure(cert.title)} 
+                      style={styles.downloadBtn}
+                    >
+                      ⬇ Brochure
+                    </button>
+                    <button 
+                      onClick={() => handleOpenEnquiry(getEnquireAudience(cert), `I want to enquire about ${cert.title}`)} 
+                      className="btn-primary" 
+                      style={getEnquireButtonStyle(cert)}
+                    >
+                      Enquire
+                    </button>
                   </div>
                 </div>
-
-                <h3 style={styles.certCardTitle}>{cert.title}</h3>
-                <p style={styles.certDesc}>{cert.desc}</p>
-                <div style={styles.certDetailsRow}>🕒 {cert.duration}</div>
-                <p style={styles.certQuote}>{cert.quote}</p>
-                
-                <div style={styles.certShipContainer}>
-                  <div style={styles.certShipTitle}>YOU'LL SHIP</div>
-                  <p style={styles.certShipText}>{cert.ship}</p>
-                </div>
-
-                <div style={styles.cardFooter}>
-                  <button 
-                    onClick={() => handleDownloadBrochure(cert.title)} 
-                    style={styles.downloadBtn}
-                  >
-                    ⬇ Brochure
-                  </button>
-                  <button 
-                    onClick={() => handleOpenEnquiry('individual', `I want to enquire about ${cert.title}`)} 
-                    className="btn-primary" 
-                    style={{ 
-                      ...styles.enquireBtn,
-                      background: cert.id === 'AIE-LDR-004' ? 'linear-gradient(135deg, var(--accent-gold) 0%, #d4af37 100%)' : undefined,
-                      boxShadow: cert.id === 'AIE-LDR-004' ? '0 4px 12px rgba(184, 134, 11, 0.2)' : undefined
-                    }}
-                  >
-                    Enquire
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -518,7 +554,11 @@ const styles = {
     alignItems: 'center',
     marginTop: 'auto',
     borderTop: '1px solid var(--border-color)',
-    paddingTop: '20px',
+    padding: '20px 30px',
+    margin: '30px -30px -30px -30px',
+    backgroundColor: 'var(--bg-secondary)',
+    borderBottomLeftRadius: '16px',
+    borderBottomRightRadius: '16px',
   },
   downloadBtn: {
     background: 'none',

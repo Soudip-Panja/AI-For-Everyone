@@ -999,3 +999,383 @@ a {
     background-size: 100% auto;
   }
 }
+
+/* Hero Viewport Wrapper Sizing */
+.hero-viewport-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-top: -80px; /* Shift up to sit behind fixed glassmorphic navbar */
+}
+
+.hero-section-class {
+  position: relative;
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 110px 0 20px 0; /* Extra top padding to clear the 80px navbar */
+  box-sizing: border-box;
+  background-color: #ffffff;
+  margin-top: 0; /* Shift handled by wrapper */
+}
+
+.hero-grid-class {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: center;
+  width: 100%;
+  margin-top: -50px; /* Shift content slightly upwards to fit trust section */
+}
+
+.hero-heading-class {
+  font-size: 3.5rem;
+  color: var(--accent-primary);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero-desc-class {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.hero-card-class {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.02);
+  box-sizing: border-box;
+}
+
+.hero-card-desc-class {
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+.trust-section-class {
+  padding: 24px 0;
+  background: linear-gradient(90deg, #fdfbf7 0%, #faf6e8 50%, #fdfbf7 100%);
+  flex-shrink: 0;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden; /* Contain horizontal animations */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+}
+
+/* Premium Top and Bottom Borders for Golden Strip */
+.trust-section-class::before,
+.trust-section-class::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(170, 124, 17, 0) 0%, rgba(170, 124, 17, 0.22) 20%, rgba(170, 124, 17, 0.22) 80%, rgba(170, 124, 17, 0) 100%);
+  z-index: 5;
+}
+
+.trust-section-class::before {
+  top: 0;
+}
+
+.trust-section-class::after {
+  bottom: 0;
+}
+
+/* Media Query: Short Screen Heights */
+@media (max-height: 780px) {
+  .hero-section-class {
+    padding: 95px 0 10px 0; /* Keep space for navbar */
+  }
+  .hero-grid-class {
+    gap: 35px;
+    margin-top: -75px; /* Shift content up slightly to ensure trust bar sits comfortably */
+  }
+  .hero-heading-class {
+    font-size: 2.75rem;
+    margin-bottom: 12px;
+  }
+  .hero-desc-class {
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+  }
+  .hero-card-class {
+    padding: 24px;
+  }
+  .hero-card-desc-class {
+    margin-bottom: 16px;
+  }
+  .trust-section-class {
+    padding: 18px 0;
+  }
+}
+
+/* Media Query: Stack layout for tablets/mobile screen widths */
+@media (max-width: 1024px) {
+  .hero-viewport-wrapper {
+    height: auto;
+    overflow: visible;
+    margin-top: 0; /* Reset negative margin on mobile/tablet */
+  }
+  .hero-section-class {
+    padding: 100px 0 40px 0;
+    margin-top: 0;
+  }
+  .hero-grid-class {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-top: 0;
+  }
+  .hero-heading-class {
+    font-size: 2.75rem;
+  }
+}
+
+/* ============================================================
+   Premium Trust Logo Bar Sizing and Animations
+   ============================================================ */
+.trust-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #000000; /* Crisp black text */
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.trust-label-pulse {
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-gold);
+  border-radius: 50%;
+  position: relative;
+}
+
+.trust-label-pulse::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-gold);
+  animation: trustPulse 1.8s infinite ease-out;
+  opacity: 0;
+}
+
+@keyframes trustPulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+.trust-logos-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 3;
+}
+
+.trust-logo-cell {
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.55); /* Translucent white glass card */
+  border: 1px solid rgba(170, 124, 17, 0.2); /* Delicate gold outline */
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  animation: trustBorderGoldPulse 4s infinite ease-in-out;
+}
+
+.trust-logo-cell:nth-child(1) {
+  animation-delay: 0s;
+}
+.trust-logo-cell:nth-child(2) {
+  animation-delay: 1s;
+}
+.trust-logo-cell:nth-child(3) {
+  animation-delay: 2s;
+}
+.trust-logo-cell:nth-child(4) {
+  animation-delay: 3s;
+}
+
+@keyframes trustBorderGoldPulse {
+  0% {
+    border-color: rgba(170, 124, 17, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01), 0 0 4px rgba(170, 124, 17, 0.05);
+  }
+  50% {
+    border-color: rgba(170, 124, 17, 0.7);
+    box-shadow: 0 1px 6px rgba(170, 124, 17, 0.15), 0 0 10px rgba(170, 124, 17, 0.25);
+  }
+  100% {
+    border-color: rgba(170, 124, 17, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01), 0 0 4px rgba(170, 124, 17, 0.05);
+  }
+}
+
+
+.trust-logo-text {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-gold); /* Dark golden logo text */
+  letter-spacing: 0.05em;
+  display: inline-block;
+  opacity: 1;
+}
+
+.trust-logo-divider {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .trust-logos-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .trust-logo-divider {
+    display: none;
+  }
+}
+
+/* Diagonal Gold Shine Sweep animation for the entire trust bar */
+.trust-shine-sweep {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.08) 42%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.08) 58%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  z-index: 4; /* Sweeps on top of logo text cells but under borders */
+  pointer-events: none;
+  animation: trustShineSweep 7s infinite ease-in-out;
+}
+
+@keyframes trustShineSweep {
+  0% {
+    left: -150%;
+  }
+  28% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Custom styling for certification cards with animated border & hover effects */
+.cert-card-interactive {
+  position: relative;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: none;
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cert-card-interactive:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.cert-card-interactive::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  padding: 1px; /* Border thickness */
+  background: rgba(15, 23, 42, 0.12); /* Visible glass edge */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2; /* Sits on top of the children (like footer background) */
+  transition: background 0.4s ease;
+}
+
+/* Hover state for corporate cards */
+.cert-card-interactive.corporate-card:hover::before {
+  background: linear-gradient(135deg, #aa7c11, #d4af37, #aa7c11);
+  background-size: 200% 200%;
+  animation: border-glow-flow 3s linear infinite;
+}
+
+.cert-card-interactive.corporate-card:hover {
+  box-shadow: 0 20px 40px rgba(170, 124, 17, 0.12);
+}
+
+/* Hover state for school cards */
+.cert-card-interactive.school-card:hover::before {
+  background: linear-gradient(135deg, #1e40af, #3b82f6, #1e40af);
+  background-size: 200% 200%;
+  animation: border-glow-flow 3s linear infinite;
+}
+
+.cert-card-interactive.school-card:hover {
+  box-shadow: 0 20px 40px rgba(30, 64, 175, 0.12);
+}
+
+/* Hover state for general/college/individual cards (standard blue) */
+.cert-card-interactive.standard-card:hover::before {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+  background-size: 200% 200%;
+  animation: border-glow-flow 3s linear infinite;
+}
+
+.cert-card-interactive.standard-card:hover {
+  box-shadow: 0 20px 40px rgba(8, 17, 44, 0.12);
+}
+
+@keyframes border-glow-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+

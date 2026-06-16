@@ -76,108 +76,123 @@ export default function Home() {
 
   return (
     <div style={styles.pageWrapper}>
-      {/* Hero Section */}
-      <section style={styles.heroSection}>
-        {/* Background Video */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 1,
-            pointerEvents: 'none'
-          }}
-        >
-          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_161253_c72b1869-400f-45ed-ac0c-52f68c2ed5bd.mp4" type="video/mp4" />
-        </video>
-        {/* Horizontal Gradient Overlay */}
-        <div 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(to right, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0) 100%)',
-            zIndex: 2,
-            pointerEvents: 'none'
-          }}
-        />
-        <div className="container" style={{ ...styles.heroGrid, position: 'relative', zIndex: 3 }}>
-          <div style={styles.heroLeft}>
-            <div style={styles.heroTagline}>THE COMPLETE AI JOURNEY • ONE ECOSYSTEM</div>
-            <h1 style={styles.heroHeading}>
-              <span className="anim-shine-text anim-line-1-text">From your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-1-gold">prompt</span><br />
-              <span className="anim-shine-text anim-line-2-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-2-gold">product</span><br />
-              <span className="anim-shine-text anim-line-3-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-3-gold">round.</span>
-            </h1>
-            <p style={styles.heroDesc}>
-              We don't just teach AI. We train active AI practitioners, mentor them through live builds, connect them to AI roles, and back the ones who launch companies. Scoped for schools, colleges, corporate teams, and individuals.
-            </p>
-            <div style={styles.heroCTAs}>
-              <Link to="/learn" className="btn-primary" style={styles.heroBtn}>
-                Explore Programs <span className="btn-arrow">→</span>
-              </Link>
-              <button 
-                onClick={() => handleOpenEnquiry('individual', 'I would like to speak with someone about AI for Everyone.')}
-                className="btn-gold-shining" 
-                style={styles.heroBtn}
-              >
-                Request Consultation
-              </button>
+      {/* Hero viewport container to fill exactly 100vh on load */}
+      <div className="hero-viewport-wrapper">
+        {/* Hero Section */}
+        <section className="hero-section-class">
+          {/* Background Video */}
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: 1,
+              pointerEvents: 'none'
+            }}
+          >
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_161253_c72b1869-400f-45ed-ac0c-52f68c2ed5bd.mp4" type="video/mp4" />
+          </video>
+          {/* Horizontal Gradient Overlay */}
+          <div 
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(to right, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0) 100%)',
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}
+          />
+          <div className="container hero-grid-class" style={{ position: 'relative', zIndex: 3 }}>
+            <div style={styles.heroLeft}>
+              <div style={styles.heroTagline}>THE COMPLETE AI JOURNEY • ONE ECOSYSTEM</div>
+              <h1 className="hero-heading-class">
+                <span className="anim-shine-text anim-line-1-text">From your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-1-gold">prompt</span><br />
+                <span className="anim-shine-text anim-line-2-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-2-gold">product</span><br />
+                <span className="anim-shine-text anim-line-3-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-3-gold">round.</span>
+              </h1>
+              <p className="hero-desc-class">
+                We don't just teach AI. We train active AI practitioners, mentor them through live builds, connect them to AI roles, and back the ones who launch companies. Scoped for schools, colleges, corporate teams, and individuals.
+              </p>
+              <div style={styles.heroCTAs}>
+                <Link to="/learn" className="btn-primary" style={styles.heroBtn}>
+                  Explore Programs <span className="btn-arrow">→</span>
+                </Link>
+                <button 
+                  onClick={() => handleOpenEnquiry('individual', 'I would like to speak with someone about AI for Everyone.')}
+                  className="btn-gold-shining" 
+                  style={styles.heroBtn}
+                >
+                  Request Consultation
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div style={styles.heroRight}>
-            <div style={{ width: '100%', maxWidth: '450px', margin: '0 auto' }}>
-              <div style={styles.heroCard} className="glass-panel">
-                <h3 style={styles.heroCardTitle}>Central Platform Hub</h3>
-                <p style={styles.heroCardDesc}>
-                  AI For Everyone connects four dedicated platforms. Learn, build, recruit, and fund AI companies in one compounding loop.
-                </p>
-                <div style={styles.heroStatGrid}>
-                  <div style={styles.heroStatItem}>
-                    <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>1,000+</span>
-                    <span style={styles.heroStatLabel}>Certified Practitioners</span>
-                  </div>
-                  <div style={styles.heroStatItem}>
-                    <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>70</span>
-                    <span style={styles.heroStatLabel}>Arena Cohort Teams</span>
-                  </div>
-                  <div style={styles.heroStatItem}>
-                    <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>11</span>
-                    <span style={styles.heroStatLabel}>Active Certifications</span>
-                  </div>
-                  <div style={styles.heroStatItem}>
-                    <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>15</span>
-                    <span style={styles.heroStatLabel}>Startups Backed</span>
+  
+            <div style={styles.heroRight}>
+              <div style={{ width: '100%', maxWidth: '450px', margin: '0 auto' }}>
+                <div className="glass-panel hero-card-class">
+                  <h3 style={styles.heroCardTitle}>Central Platform Hub</h3>
+                  <p className="hero-card-desc-class">
+                    AI For Everyone connects four dedicated platforms. Learn, build, recruit, and fund AI companies in one compounding loop.
+                  </p>
+                  <div style={styles.heroStatGrid}>
+                    <div style={styles.heroStatItem}>
+                      <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>1,000+</span>
+                      <span style={styles.heroStatLabel}>Certified Practitioners</span>
+                    </div>
+                    <div style={styles.heroStatItem}>
+                      <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>70</span>
+                      <span style={styles.heroStatLabel}>Arena Cohort Teams</span>
+                    </div>
+                    <div style={styles.heroStatItem}>
+                      <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>11</span>
+                      <span style={styles.heroStatLabel}>Active Certifications</span>
+                    </div>
+                    <div style={styles.heroStatItem}>
+                      <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>15</span>
+                      <span style={styles.heroStatLabel}>Startups Backed</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Trust Logo Bar */}
-      <section style={styles.trustSection}>
-        <div className="container" style={styles.trustFlex}>
-          <span style={styles.trustTitle}>SUPPORTED BY LEADING SYSTEMS</span>
-          <div style={styles.trustGrid}>
-            <span style={styles.trustLogo}>INTIME IT SERVICES</span>
-            <span style={styles.trustLogo}>ICMAI STRATEGIC PARTNER</span>
-            <span style={styles.trustLogo}>NASSCOM-JUDGED ARENA</span>
-            <span style={styles.trustLogo}>HALDIA CO-FUNDED</span>
+        </section>
+  
+        {/* Trust Logo Bar */}
+        <section className="trust-section-class">
+          <div className="trust-shine-sweep" />
+          <div className="container" style={styles.trustFlex}>
+            <div className="trust-label">
+              <span className="trust-label-pulse"></span>
+              SUPPORTED BY LEADING SYSTEMS
+            </div>
+            <div className="trust-logos-wrapper">
+              <div className="trust-logo-cell">
+                <span className="trust-logo-text">INTIME IT SERVICES</span>
+              </div>
+              <div className="trust-logo-cell">
+                <span className="trust-logo-text">ICMAI STRATEGIC PARTNER</span>
+              </div>
+              <div className="trust-logo-cell">
+                <span className="trust-logo-text">NASSCOM-JUDGED ARENA</span>
+              </div>
+              <div className="trust-logo-cell">
+                <span className="trust-logo-text">HALDIA CO-FUNDED</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Platforms Hook Section (The Central point of contact description) */}
       <section style={styles.sectionPadding}>
@@ -316,18 +331,6 @@ const styles = {
     backgroundColor: 'var(--bg-primary)',
     minHeight: '100vh',
   },
-  heroSection: {
-    position: 'relative',
-    padding: '80px 0 60px 0',
-    backgroundColor: '#ffffff',
-    overflow: 'hidden',
-  },
-  heroGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1.2fr 1fr',
-    gap: '60px',
-    alignItems: 'center',
-  },
   heroLeft: {
     display: 'flex',
     flexDirection: 'column',
@@ -340,22 +343,10 @@ const styles = {
     letterSpacing: '0.15em',
     marginBottom: '16px',
   },
-  heroHeading: {
-    fontSize: '3.5rem',
-    color: 'var(--accent-primary)',
-    lineHeight: '1.1',
-    marginBottom: '24px',
-  },
   serifItalic: {
     fontFamily: 'var(--font-serif)',
     fontStyle: 'italic',
     fontWeight: '500',
-  },
-  heroDesc: {
-    fontSize: '1.15rem',
-    color: 'var(--text-secondary)',
-    lineHeight: '1.6',
-    marginBottom: '32px',
   },
   heroCTAs: {
     display: 'flex',
@@ -369,24 +360,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
-  heroCard: {
-    backgroundColor: 'var(--bg-secondary)',
-    border: '1px solid var(--border-color)',
-    borderRadius: '16px',
-    padding: '40px',
-    width: '100%',
-    boxShadow: '0 8px 30px rgba(0,0,0,0.02)',
-  },
   heroCardTitle: {
     fontSize: '1.6rem',
     color: 'var(--accent-primary)',
     marginBottom: '10px',
-  },
-  heroCardDesc: {
-    color: 'var(--text-secondary)',
-    lineHeight: '1.5',
-    marginBottom: '30px',
-    fontSize: '0.95rem',
   },
   heroStatGrid: {
     display: 'grid',
@@ -406,12 +383,6 @@ const styles = {
     fontSize: '0.85rem',
     color: 'var(--text-muted)',
     marginTop: '2px',
-  },
-  trustSection: {
-    borderTop: '1px solid var(--border-color)',
-    borderBottom: '1px solid var(--border-color)',
-    padding: '30px 0',
-    backgroundColor: '#ffffff',
   },
   trustFlex: {
     display: 'flex',

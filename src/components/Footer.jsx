@@ -6,7 +6,7 @@ export default function Footer() {
     <footer style={styles.footer}>
       <div style={styles.container}>
         {/* Main Grid */}
-        <div style={styles.grid}>
+        <div className="footer-main-grid" style={styles.grid}>
 
           {/* Col 1 — Brand */}
           <div style={styles.brandCol}>
@@ -121,6 +121,34 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Col 4 — Legal & Support / Languages */}
+          <div style={styles.legalCol}>
+            <div style={styles.colLabel}>LEGAL & SUPPORT</div>
+            <ul style={styles.navList}>
+              <li>
+                <Link to="/privacy-policy" style={styles.navLink} className="footer-nav-link">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms-conditions" style={styles.navLink} className="footer-nav-link">
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
+
+            <div style={{ ...styles.colLabel, marginTop: '30px' }}>LANGUAGES</div>
+            <div style={styles.languagesRow}>
+              <a href="#" style={styles.langLink} className="footer-nav-link">English</a>
+              <span style={styles.langDot}>&middot;</span>
+              <a href="#" style={styles.langLink} className="footer-nav-link">العربية</a>
+              <span style={styles.langDot}>&middot;</span>
+              <a href="#" style={styles.langLink} className="footer-nav-link">বাংলা</a>
+              <span style={styles.langDot}>&middot;</span>
+              <a href="#" style={styles.langLink} className="footer-nav-link">हिंदी</a>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -146,6 +174,18 @@ export default function Footer() {
         .footer-nav-link:hover {
           color: #ffffff !important;
         }
+        @media (max-width: 1024px) {
+          .footer-main-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 40px !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .footer-main-grid {
+            grid-template-columns: 1fr !important;
+            gap: 30px !important;
+          }
+        }
       `}} />
     </footer>
   );
@@ -165,7 +205,7 @@ const styles = {
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: '1.4fr 1fr 1fr',
+    gridTemplateColumns: '1.4fr 1fr 1fr 1fr',
     gap: '60px',
     paddingBottom: '60px',
   },
@@ -295,6 +335,27 @@ const styles = {
     color: 'rgba(255,255,255,0.75)',
     textDecoration: 'none',
     transition: 'color 0.2s',
+  },
+  legalCol: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+  languagesRow: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '6px 8px',
+  },
+  langLink: {
+    fontSize: '0.95rem',
+    color: 'rgba(255,255,255,0.6)',
+    textDecoration: 'none',
+    transition: 'color 0.2s',
+  },
+  langDot: {
+    color: 'rgba(255,255,255,0.35)',
+    userSelect: 'none',
   },
 
   /* Bottom Bar */

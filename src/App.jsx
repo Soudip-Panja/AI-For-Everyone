@@ -11,6 +11,7 @@ import Build from "./Pages/Build";
 import Hire from "./Pages/Hire";
 import Invest from "./Pages/Invest";
 import Adopt from "./Pages/Adopt";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
 
 function Layout() {
   const [enquiryOpen, setEnquiryOpen] = useState(false);
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
       { path: "/hire", element: <Hire /> },
       { path: "/invest", element: <Invest /> },
       { path: "/adopt", element: <Adopt /> },
+      { path: "/privacy-policy", element: <PrivacyPolicy /> },
     ]
   }
 ]);
