@@ -67,9 +67,9 @@ export default function PrivacyPolicy() {
     },
     {
       id: "contact",
-      number: "",
+      number: "07",
       title: "Contact",
-      shortTitle: "Contact",
+      shortTitle: "7. Contact",
       content: [
         "Questions about this page can be directed to the platform administrator or support contact configured for your organization."
       ]
@@ -192,6 +192,19 @@ export default function PrivacyPolicy() {
                   )}
                   {sec.title}
                 </h2>
+
+                {/* Decorative horizontal straight line below heading */}
+                <div 
+                  style={{
+                    height: '2px',
+                    width: '100%',
+                    marginTop: '8px',
+                    marginBottom: '24px',
+                    background: 'linear-gradient(to right, rgba(184, 134, 11, 0.1) 0%, #d4af37 30%, #d4af37 70%, rgba(170, 124, 17, 0.1) 100%)',
+                    borderRadius: '2px',
+                    opacity: 0.9
+                  }}
+                />
                 {sec.content.map((paragraph, pIdx) => (
                   <p 
                     key={pIdx} 
