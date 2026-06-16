@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Adopt() {
   const [inqName, setInqName] = useState('');
@@ -10,6 +10,18 @@ export default function Adopt() {
   const [inqInterests, setInqInterests] = useState([]);
   const [inqContext, setInqContext] = useState('');
   const [inqSubmitted, setInqSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (window.location.hash === '#enquiry-form') {
+      const element = document.getElementById('enquiry-form');
+      if (element) {
+        const timer = setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
 
   const toggleInqInterest = (val) => {
     setInqInterests(prev =>

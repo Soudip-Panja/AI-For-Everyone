@@ -3,6 +3,16 @@ import { Link, useOutletContext } from 'react-router-dom';
 
 export default function Home() {
   const { handleOpenEnquiry } = useOutletContext();
+  const [floatingEmojis, setFloatingEmojis] = React.useState([]);
+
+  const addFloatingEmoji = (emoji) => {
+    const id = Date.now() + Math.random();
+    const randomLeft = Math.floor(Math.random() * 40) + 10;
+    setFloatingEmojis(prev => [...prev, { id, emoji, left: randomLeft }]);
+    setTimeout(() => {
+      setFloatingEmojis(prev => prev.filter(item => item.id !== id));
+    }, 1200);
+  };
 
   const ecosystemPillars = [
     {
@@ -11,7 +21,8 @@ export default function Home() {
       desc: 'Train AI capability across 11 launch certifications and 3 tiers. Built on The Practitioner Method™.',
       link: '/learn',
       btnText: 'Explore Certifications',
-      color: 'var(--accent-secondary)'
+      color: 'var(--accent-secondary)',
+      rgb: '29, 75, 124'
     },
     {
       num: '02',
@@ -19,7 +30,8 @@ export default function Home() {
       desc: 'Mentor builders through hands-on capstone projects and the global AI Innovation Arena cohort championships.',
       link: '/build',
       btnText: 'Explore the Arena',
-      color: 'var(--accent-teal)'
+      color: 'var(--accent-teal)',
+      rgb: '15, 118, 110'
     },
     {
       num: '03',
@@ -27,7 +39,8 @@ export default function Home() {
       desc: 'Connect verified, certified AI practitioners with companies and talent acquisition recruiters.',
       link: '/hire',
       btnText: 'View Recruitment Options',
-      color: '#c53030'
+      color: '#c53030',
+      rgb: '197, 48, 48'
     },
     {
       num: '04',
@@ -35,7 +48,8 @@ export default function Home() {
       desc: 'Back high-potential builders with seed capital, enterprise go-to-market channels, and mentorship.',
       link: '/invest',
       btnText: 'Learn About Seed Backing',
-      color: 'var(--accent-gold)'
+      color: 'var(--accent-gold)',
+      rgb: '170, 124, 17'
     }
   ];
 
@@ -45,32 +59,32 @@ export default function Home() {
       desc: 'The study and coursework platform for practitioners. Complete modules, download brochures, and submit shippable projects.',
       url: 'https://lms.aiforeveryone.ai/auth/login?from=%2F',
       actionText: 'Access LMS Portal',
-      bg: '#f8fafc',
-      borderColor: 'var(--border-color)'
+      image: '/LMS.avif',
+      accentClass: 'portal-accent-lms'
     },
     {
       name: 'JOBS PORTAL',
       desc: 'The dynamic job board. Recruit pre-vetted developers or apply for jobs matching your Practitioner certification tier.',
       url: 'https://jobs.aiforeveryone.ai/',
       actionText: 'Open Jobs Board',
-      bg: '#f0fdf4',
-      borderColor: '#bbf7d0'
+      image: '/Job.avif',
+      accentClass: 'portal-accent-jobs'
     },
     {
       name: 'PITCH HUB',
       desc: 'The founder-investor pipeline. Submit startup video pitches or browse vetted deals emerging from the Innovation Arena.',
       url: 'https://pitchub.aiforeveryone.ai/',
       actionText: 'Go to Pitch Hub',
-      bg: '#fffbeb',
-      borderColor: '#fef08a'
+      image: '/Pitch.avif',
+      accentClass: 'portal-accent-pitch'
     },
     {
       name: 'MARKETPLACE',
       desc: 'The commercial exchange. Browse, buy, sell, or license deployed AI solutions and automation tools built by graduates.',
       url: 'https://a4e.marketplace.in/',
       actionText: 'Explore Marketplace',
-      bg: '#fdf2f8',
-      borderColor: '#fbcfe8'
+      image: '/Market.avif',
+      accentClass: 'portal-accent-market'
     }
   ];
 
@@ -194,54 +208,6 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Platforms Hook Section (The Central point of contact description) */}
-      <section style={styles.sectionPadding}>
-        <div className="container">
-          <div style={styles.centeredHeader}>
-            <span style={styles.sectionTag}>CENTRAL PLATFORM HUB</span>
-            <h2 style={styles.sectionTitle}>One Ecosystem. Four Platforms.</h2>
-            <p style={styles.sectionDesc}>
-              AI For Everyone is the central point of contact that ties together these specialized portals. Read the content, explore the solutions, and jump directly into the platform you need.
-            </p>
-          </div>
-
-          <div style={styles.portalsGrid} className="grid-responsive-2">
-            {portals.map((portal) => (
-              <div 
-                key={portal.name} 
-                className={portal.name === 'PITCH HUB' ? 'gold-border-glow' : ''}
-                style={{ 
-                  ...styles.portalCard, 
-                  backgroundColor: portal.bg, 
-                  borderColor: portal.name === 'PITCH HUB' ? undefined : portal.borderColor 
-                }}
-              >
-                <div>
-                  <div style={{ ...styles.portalTag, color: portal.name === 'PITCH HUB' ? 'var(--accent-gold)' : 'var(--accent-primary)' }}>{portal.name}</div>
-                  <h3 style={styles.portalCardTitle}>{portal.name === 'LMS PORTAL' ? 'Coursework & Slides' : portal.name === 'JOBS PORTAL' ? 'Match & Recruit' : portal.name === 'PITCH HUB' ? 'Funding & Startups' : 'Buy & Sell Code'}</h3>
-                  <p style={styles.portalDesc}>{portal.desc}</p>
-                </div>
-                <a 
-                  href={portal.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className={portal.name === 'PITCH HUB' ? 'btn-primary' : 'btn-secondary'}
-                  style={{
-                    ...styles.portalBtn,
-                    backgroundColor: portal.name === 'PITCH HUB' ? 'var(--accent-gold)' : '#ffffff',
-                    borderColor: portal.name === 'PITCH HUB' ? 'var(--accent-gold)' : '#cbd5e1',
-                    color: portal.name === 'PITCH HUB' ? '#ffffff' : 'var(--text-primary)',
-                    boxShadow: portal.name === 'PITCH HUB' ? '0 4px 12px rgba(184, 134, 11, 0.2)' : 'none'
-                  }}
-                >
-                  {portal.actionText} →
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* The Four Pillars Section */}
       <section style={{ ...styles.sectionPadding, backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
         <div className="container">
@@ -255,14 +221,21 @@ export default function Home() {
 
           <div style={styles.pillarsGrid} className="grid-responsive-4">
             {ecosystemPillars.map((pillar) => (
-              <div key={pillar.num} style={styles.pillarCard} className="glass-panel">
+              <div 
+                key={pillar.num} 
+                className="ecosystem-card glass-panel"
+                style={{
+                  '--accent-color': pillar.color,
+                  '--accent-rgb': pillar.rgb
+                }}
+              >
                 <div>
-                  <div style={{ ...styles.pillarNum, color: pillar.color }}>{pillar.num}</div>
+                  <div className="ecosystem-num" style={{ color: pillar.color }}>{pillar.num}</div>
                   <h3 style={styles.pillarTitle}>{pillar.title}</h3>
                   <p style={styles.pillarDesc}>{pillar.desc}</p>
                 </div>
-                <Link to={pillar.link} className="btn-secondary" style={styles.pillarBtn}>
-                  {pillar.btnText} →
+                <Link to={pillar.link} className="ecosystem-btn">
+                  {pillar.btnText} <span className="btn-arrow">→</span>
                 </Link>
               </div>
             ))}
@@ -270,28 +243,159 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Manifesto Section */}
-      <section style={styles.sectionPadding}>
-        <div className="container" style={styles.manifestoFlex}>
-          <div style={styles.manifestoLeft}>
-            <span style={styles.sectionTag}>THE MANIFESTO</span>
-            <h2 style={styles.manifestoHeading}>
-              We don't believe in the AI gap. <br />
-              <span style={{ color: 'var(--accent-secondary)' }} className="serif-italic">We close it.</span>
-            </h2>
-            <span style={styles.manifestoMeta}>MAY 2026 • KOLKATA • WORLDWIDE</span>
+      {/* Innovation Arena Video Showcase Section */}
+      <section className="arena-video-section">
+        <div className="container">
+          <div className="arena-video-header">
+            <h2 className="arena-video-title">Experience the AI Innovation Arena</h2>
+            <p className="arena-video-desc">
+              Watch our cohorts collaborate, iterate, and pitch their AI products to industry experts. From zero capability to shipping production-ready software in weeks.
+            </p>
           </div>
-          <div style={styles.manifestoRight}>
-            <p style={styles.manifestoText}>
+
+          <div className="arena-video-card">
+            <div className="arena-video-frame">
+              <div className="arena-video-container">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="arena-video-element"
+                >
+                  <source src="/Innovation Arena.mp4" type="video/mp4" />
+                </video>
+              </div>
+
+              {/* Floating Live Indicator */}
+              <div className="arena-live-badge">
+                <span className="arena-live-dot"></span>
+                LIVE
+              </div>
+
+              {/* Current Viewers Info */}
+              <div className="arena-viewers-badge">
+                <span>👤</span>
+                700+ active builders
+              </div>
+
+              {/* Reaction Buttons */}
+              <button 
+                className="arena-reaction-heart" 
+                onClick={() => addFloatingEmoji('❤️')}
+                title="Love"
+              >
+                ❤️
+              </button>
+              <button 
+                className="arena-reaction-thumbsup" 
+                onClick={() => addFloatingEmoji('👍')}
+                title="Like"
+              >
+                👍
+              </button>
+
+              {/* Floating Emoji Particles */}
+              {floatingEmojis.map(item => (
+                <span 
+                  key={item.id} 
+                  className="floating-emoji"
+                  style={{
+                    bottom: '120px',
+                    right: `${item.left}px`
+                  }}
+                >
+                  {item.emoji}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '40px' }}>
+            <a 
+              href="#enterprise-developments" 
+              className="btn-gold-shining" 
+              style={{ 
+                textDecoration: 'none', 
+                padding: '14px 32px'
+              }}
+            >
+              Bring Arena to your Campus →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Platforms Hook Section (The Central point of contact description) */}
+      <section className="portals-section-custom">
+        <div className="container">
+          <div style={styles.centeredHeader}>
+            <span style={styles.sectionTag}>CENTRAL PLATFORM HUB</span>
+            <h2 style={styles.sectionTitle}>One Ecosystem. Four Platforms.</h2>
+            <p style={styles.sectionDesc}>
+              AI For Everyone is the central point of contact that ties together these specialized portals. Read the content, explore the solutions, and jump directly into the platform you need.
+            </p>
+          </div>
+
+          <div className="portals-grid-layout">
+            {portals.map((portal) => (
+              <div 
+                key={portal.name} 
+                className={`portal-card-custom ${portal.accentClass}`}
+              >
+                {/* Image Container */}
+                <div className="portal-card-image-wrapper">
+                  <img src={portal.image} alt={portal.name} className="portal-card-image" />
+                </div>
+
+                {/* Content */}
+                <div className="portal-card-content">
+                  <div>
+                    <div className="portal-card-tag">{portal.name}</div>
+                    <h3 className="portal-card-main-title">
+                      {portal.name === 'LMS PORTAL' ? 'Coursework & Slides' : 
+                       portal.name === 'JOBS PORTAL' ? 'Match & Recruit' : 
+                       portal.name === 'PITCH HUB' ? 'Funding & Startups' : 'Buy & Sell Code'}
+                    </h3>
+                    <p className="portal-card-desc-paragraph">{portal.desc}</p>
+                  </div>
+                  <a 
+                    href={portal.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="portal-card-action-btn"
+                  >
+                    {portal.actionText} <span className="btn-arrow">→</span>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Manifesto Section */}
+      <section className="manifesto-section-dark">
+        <div className="container manifesto-container">
+          <div className="manifesto-left-block">
+            <span className="manifesto-tag-custom">THE MANIFESTO</span>
+            <h2 className="manifesto-heading-custom">
+              We don't believe in the AI gap. <br />
+              <span style={{ color: 'var(--accent-gold)' }} className="serif-italic">We close it.</span>
+            </h2>
+            <span className="manifesto-meta-custom">MAY 2026 • KOLKATA • WORLDWIDE</span>
+          </div>
+          <div className="manifesto-right-block">
+            <p className="manifesto-paragraph">
               The internet shift took ten years. The mobile shift took five. <strong>The AI shift is taking eighteen months.</strong>
             </p>
-            <p style={styles.manifestoText}>
+            <p className="manifesto-paragraph">
               We don't teach AI as theory — we train practitioners who ship. We don't end with a certificate — we end with a product. We mentor cohorts through the Innovation Arena, place them through the AI Jobs marketplace, and back the strongest into companies of their own.
             </p>
-            <p style={{ ...styles.manifestoText, fontStyle: 'italic', fontWeight: '600' }}>
+            <p className="manifesto-quote">
               "Built in India. Made for the world. Open to anyone willing to ship."
             </p>
-            <span style={styles.manifestoAuthor}>— SOUMOJIT DAS • FOUNDER, AI FOR EVERYONE</span>
+            <span className="manifesto-author-custom">— SOUMOJIT DAS • FOUNDER, AI FOR EVERYONE</span>
           </div>
         </div>
       </section>
@@ -313,12 +417,30 @@ export default function Home() {
               { num: '4.9/5', title: 'Learner Rating', desc: 'Average feedback score across students and professionals.' },
               { num: '48 Hours', title: 'Proposal Turnaround', desc: 'Guaranteed delivery of custom training plans for enquiries.' }
             ].map((stat, idx) => (
-              <div key={idx} style={styles.statCard}>
+              <div key={idx} className="stat-card-custom">
                 <span style={styles.statNumBig} className="gradient-gold-text">{stat.num}</span>
                 <h4 style={styles.statCardTitle}>{stat.title}</h4>
                 <p style={styles.statCardDesc}>{stat.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Enterprise Scoping CTA Section */}
+      <section id="enterprise-developments" className="adopt-cta-section-bg" style={{ ...styles.sectionPadding, borderTop: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div className="adopt-cta-card">
+            <div className="adopt-cta-content">
+              <span className="adopt-cta-tag">ENTERPRISE DEPLOYMENTS</span>
+              <h2 className="adopt-cta-title">Submit a custom scoping proposal</h2>
+              <p className="adopt-cta-desc">
+                Bring AI capability to your business or college campus. Submit details of your organization structure, current software integrations, and training requirements to get a custom roadmap in 48 hours.
+              </p>
+            </div>
+            <Link to="/adopt#enquiry-form" className="btn-primary adopt-cta-btn">
+              Create Scoping Proposal →
+            </Link>
           </div>
         </div>
       </section>
