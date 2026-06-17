@@ -3,15 +3,61 @@ import { Link, useOutletContext } from 'react-router-dom';
 
 export default function Home() {
   const { handleOpenEnquiry } = useOutletContext();
-  const [floatingEmojis, setFloatingEmojis] = React.useState([]);
+  const videoRef = React.useRef(null);
+  const [isPlaying, setIsPlaying] = React.useState(true);
+  const [isMuted, setIsMuted] = React.useState(true);
+  const [progress, setProgress] = React.useState(0);
+  const [currentTime, setCurrentTime] = React.useState('0:00');
+  const [duration, setDuration] = React.useState('0:00');
 
-  const addFloatingEmoji = (emoji) => {
-    const id = Date.now() + Math.random();
-    const randomLeft = Math.floor(Math.random() * 40) + 10;
-    setFloatingEmojis(prev => [...prev, { id, emoji, left: randomLeft }]);
-    setTimeout(() => {
-      setFloatingEmojis(prev => prev.filter(item => item.id !== id));
-    }, 1200);
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play().then(() => setIsPlaying(true)).catch(err => console.log(err));
+      }
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      const nextMuted = !videoRef.current.muted;
+      videoRef.current.muted = nextMuted;
+      setIsMuted(nextMuted);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const current = videoRef.current.currentTime;
+      const dur = videoRef.current.duration || 0;
+      if (dur > 0) {
+        setProgress((current / dur) * 100);
+      }
+      setCurrentTime(formatTime(current));
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      setDuration(formatTime(videoRef.current.duration));
+    }
+  };
+
+  const formatTime = (timeInSeconds) => {
+    const mins = Math.floor(timeInSeconds / 60);
+    const secs = Math.floor(timeInSeconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
+  const handleSeek = (e) => {
+    if (videoRef.current && videoRef.current.duration) {
+      const newProgress = parseFloat(e.target.value);
+      setProgress(newProgress);
+      videoRef.current.currentTime = (newProgress / 100) * videoRef.current.duration;
+    }
   };
 
   const ecosystemPillars = [
@@ -111,9 +157,9 @@ export default function Home() {
               pointerEvents: 'none'
             }}
           >
-            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_161253_c72b1869-400f-45ed-ac0c-52f68c2ed5bd.mp4" type="video/mp4" />
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_143803_f635b644-d959-4f16-9d29-cedaeb5c6de0.mp4" type="video/mp4" />
           </video>
-          {/* Horizontal Gradient Overlay */}
+          {/* Horizontal Gradient Overlay — keeps left text area clean & readable */}
           <div 
             style={{
               position: 'absolute',
@@ -121,20 +167,20 @@ export default function Home() {
               left: 0,
               width: '100%',
               height: '100%',
-              background: 'linear-gradient(to right, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0) 100%)',
+              background: 'linear-gradient(105deg, rgba(4,9,24,0.72) 0%, rgba(4,9,24,0.48) 38%, rgba(4,9,24,0.08) 60%, rgba(0,0,0,0) 100%)',
               zIndex: 2,
               pointerEvents: 'none'
             }}
           />
           <div className="container hero-grid-class" style={{ position: 'relative', zIndex: 3 }}>
             <div style={styles.heroLeft}>
-              <div style={styles.heroTagline}>THE COMPLETE AI JOURNEY • ONE ECOSYSTEM</div>
-              <h1 className="hero-heading-class">
-                <span className="anim-shine-text anim-line-1-text">From your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-1-gold">prompt</span><br />
-                <span className="anim-shine-text anim-line-2-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-2-gold">product</span><br />
-                <span className="anim-shine-text anim-line-3-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-3-gold">round.</span>
+              <div style={styles.heroTaglineDark}>THE COMPLETE AI JOURNEY • ONE ECOSYSTEM</div>
+              <h1 className="hero-heading-class hero-heading-light">
+                <span className="anim-shine-text-light anim-line-1-text">From your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-1-gold">prompt</span><br />
+                <span className="anim-shine-text-light anim-line-2-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-2-gold">product</span><br />
+                <span className="anim-shine-text-light anim-line-3-text">to your first</span> <span style={styles.serifItalic} className="anim-gold-text anim-line-3-gold">round.</span>
               </h1>
-              <p className="hero-desc-class">
+              <p className="hero-desc-class hero-desc-light">
                 We don't just teach AI. We train active AI practitioners, mentor them through live builds, connect them to AI roles, and back the ones who launch companies. Scoped for schools, colleges, corporate teams, and individuals.
               </p>
               <div style={styles.heroCTAs}>
@@ -152,28 +198,32 @@ export default function Home() {
             </div>
   
             <div style={styles.heroRight}>
-              <div style={{ width: '100%', maxWidth: '450px', margin: '0 auto' }}>
-                <div className="glass-panel hero-card-class">
-                  <h3 style={styles.heroCardTitle}>Central Platform Hub</h3>
-                  <p className="hero-card-desc-class">
-                    AI For Everyone connects four dedicated platforms. Learn, build, recruit, and fund AI companies in one compounding loop.
+              <div style={{ width: '100%', maxWidth: '440px', margin: '0 auto' }}>
+                <div className="apple-glass-card">
+                  {/* Subtle top highlight line */}
+                  <div className="apple-glass-topline" />
+                  <div className="apple-glass-badge">CENTRAL PLATFORM HUB</div>
+                  <h3 className="apple-glass-title">One Ecosystem.<br/>Four Platforms.</h3>
+                  <p className="apple-glass-desc">
+                    AI For Everyone connects four dedicated platforms — Learn, build, recruit, and fund AI companies in one compounding loop.
                   </p>
+                  <div className="apple-glass-divider" />
                   <div style={styles.heroStatGrid}>
                     <div style={styles.heroStatItem}>
-                      <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>1,000+</span>
-                      <span style={styles.heroStatLabel}>Certified Practitioners</span>
+                      <span className="apple-glass-stat-num">1,000+</span>
+                      <span className="apple-glass-stat-label">Certified Practitioners</span>
                     </div>
                     <div style={styles.heroStatItem}>
-                      <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>70</span>
-                      <span style={styles.heroStatLabel}>Arena Cohort Teams</span>
+                      <span className="apple-glass-stat-num">70</span>
+                      <span className="apple-glass-stat-label">Arena Cohort Teams</span>
                     </div>
                     <div style={styles.heroStatItem}>
-                      <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>11</span>
-                      <span style={styles.heroStatLabel}>Active Certifications</span>
+                      <span className="apple-glass-stat-num">11</span>
+                      <span className="apple-glass-stat-label">Active Certifications</span>
                     </div>
                     <div style={styles.heroStatItem}>
-                      <span style={{ ...styles.heroStatNum, color: 'var(--accent-gold)' }}>15</span>
-                      <span style={styles.heroStatLabel}>Startups Backed</span>
+                      <span className="apple-glass-stat-num">15</span>
+                      <span className="apple-glass-stat-label">Startups Backed</span>
                     </div>
                   </div>
                 </div>
@@ -257,61 +307,75 @@ export default function Home() {
             <div className="arena-video-frame">
               <div className="arena-video-container">
                 <video
+                  ref={videoRef}
                   autoPlay
                   loop
-                  muted
+                  muted={isMuted}
                   playsInline
                   className="arena-video-element"
+                  onTimeUpdate={handleTimeUpdate}
+                  onLoadedMetadata={handleLoadedMetadata}
+                  onClick={togglePlay}
                 >
                   <source src="/Innovation Arena.mp4" type="video/mp4" />
                 </video>
+
+                {/* Custom Video Controls */}
+                <div className="arena-video-controls">
+                  <button 
+                    className="control-btn play-pause-btn" 
+                    onClick={togglePlay} 
+                    aria-label={isPlaying ? "Pause" : "Play"}
+                  >
+                    {isPlaying ? (
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    )}
+                  </button>
+
+                  <div className="timeline-container">
+                    <span className="time-display">{currentTime}</span>
+                    <input 
+                      type="range" 
+                      className="timeline-slider" 
+                      min="0" 
+                      max="100" 
+                      step="0.1"
+                      value={progress} 
+                      onChange={handleSeek}
+                      style={{
+                        background: `linear-gradient(to right, var(--accent-gold, #d4af37) 0%, var(--accent-gold, #d4af37) ${progress}%, rgba(255, 255, 255, 0.2) ${progress}%, rgba(255, 255, 255, 0.2) 100%)`
+                      }}
+                    />
+                    <span className="time-display">{duration}</span>
+                  </div>
+
+                  <button 
+                    className="control-btn mute-btn" 
+                    onClick={toggleMute} 
+                    aria-label={isMuted ? "Unmute" : "Mute"}
+                  >
+                    {isMuted ? (
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
-
-              {/* Floating Live Indicator */}
-              <div className="arena-live-badge">
-                <span className="arena-live-dot"></span>
-                LIVE
-              </div>
-
-              {/* Current Viewers Info */}
-              <div className="arena-viewers-badge">
-                <span>👤</span>
-                700+ active builders
-              </div>
-
-              {/* Reaction Buttons */}
-              <button 
-                className="arena-reaction-heart" 
-                onClick={() => addFloatingEmoji('❤️')}
-                title="Love"
-              >
-                ❤️
-              </button>
-              <button 
-                className="arena-reaction-thumbsup" 
-                onClick={() => addFloatingEmoji('👍')}
-                title="Like"
-              >
-                👍
-              </button>
-
-              {/* Floating Emoji Particles */}
-              {floatingEmojis.map(item => (
-                <span 
-                  key={item.id} 
-                  className="floating-emoji"
-                  style={{
-                    bottom: '120px',
-                    right: `${item.left}px`
-                  }}
-                >
-                  {item.emoji}
-                </span>
-              ))}
             </div>
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <div style={{ textAlign: 'center', marginTop: '24px' }}>
             <a 
               href="#enterprise-developments" 
               className="btn-gold-shining" 
@@ -464,6 +528,15 @@ const styles = {
     color: 'var(--accent-secondary)',
     letterSpacing: '0.15em',
     marginBottom: '16px',
+  },
+  heroTaglineDark: {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.78rem',
+    fontWeight: '700',
+    color: 'rgba(212, 175, 55, 0.9)',
+    letterSpacing: '0.18em',
+    marginBottom: '18px',
+    textShadow: '0 1px 6px rgba(0,0,0,0.5)',
   },
   serifItalic: {
     fontFamily: 'var(--font-serif)',
