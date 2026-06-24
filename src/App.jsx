@@ -11,6 +11,9 @@ import Build from "./Pages/Build";
 import Hire from "./Pages/Hire";
 import Invest from "./Pages/Invest";
 import Adopt from "./Pages/Adopt";
+import Login from "./Pages/Login";
+import ForgotPassword from "./Pages/ForgotPassword";
+import Dashboard from "./Pages/Dashboard";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import TermsConditions from "./Pages/TermsConditions";
 
@@ -32,25 +35,43 @@ function Layout() {
     setAuthOpen(true);
   };
 
+  const handleSwitchAuthMode = (mode) => {
+    setAuthMode(mode);
+    setAuthOpen(true);
+  };
+
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-primary)" }}>
-      <Navbar onOpenEnquiry={() => handleOpenEnquiry("individual")} onOpenAuth={handleOpenAuth} />
-      <main style={{ flex: 1, paddingTop: "80px" }}> {/* Navbar height offset */}
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "var(--bg-primary)",
+      }}
+    >
+      <Navbar
+        onOpenEnquiry={() => handleOpenEnquiry("individual")}
+        onOpenAuth={handleOpenAuth}
+      />
+      <main style={{ flex: 1, paddingTop: "80px" }}>
+        {" "}
+        {/* Navbar height offset */}
         <Outlet context={{ handleOpenEnquiry, handleOpenAuth }} />
       </main>
       <Footer />
-      
-      <EnquiryModal 
-        open={enquiryOpen} 
-        onClose={() => setEnquiryOpen(false)} 
+
+      <EnquiryModal
+        open={enquiryOpen}
+        onClose={() => setEnquiryOpen(false)}
         initialAudience={enquiryAudience}
         initialMessage={enquiryMessage}
       />
-      
-      <AuthModals 
-        open={authOpen} 
-        onClose={() => setAuthOpen(false)} 
-        initialMode={authMode}
+
+      <AuthModals
+        isOpen={authOpen}
+        mode={authMode}
+        onClose={() => setAuthOpen(false)}
+        onSwitchMode={handleSwitchAuthMode}
       />
     </div>
   );
@@ -67,16 +88,17 @@ const router = createBrowserRouter([
       { path: "/hire", element: <Hire /> },
       { path: "/invest", element: <Invest /> },
       { path: "/adopt", element: <Adopt /> },
+      { path: "/login", element: <Login /> },
+      { path: "/forgot-password", element: <ForgotPassword /> },
+      { path: "/dashboard", element: <Dashboard /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },
       { path: "/terms-conditions", element: <TermsConditions /> },
-    ]
-  }
+    ],
+  },
 ]);
 
 function App() {
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

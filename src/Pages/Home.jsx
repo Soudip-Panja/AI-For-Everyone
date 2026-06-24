@@ -64,7 +64,7 @@ export default function Home() {
     {
       num: '01',
       title: 'LEARN',
-      desc: 'Train AI capability across 11 launch certifications and 3 tiers. Built on The Practitioner Method™.',
+      desc: 'Practitioners begin with structured, role-specific AI training across 11 certifications and 3 proficiency tiers — built on The Practitioner Method™. On completion, they receive a verified certificate recognised by industry.',
       link: '/learn',
       btnText: 'Explore Certifications',
       color: 'var(--accent-secondary)',
@@ -73,7 +73,7 @@ export default function Home() {
     {
       num: '02',
       title: 'BUILD',
-      desc: 'Mentor builders through hands-on capstone projects and the global AI Innovation Arena cohort championships.',
+      desc: 'Certified practitioners enter the AI Innovation Arena — a live hackathon cohort where teams design, build, and ship real AI products. Each team demonstrates their product in front of a panel of industry leaders and investors.',
       link: '/build',
       btnText: 'Explore the Arena',
       color: 'var(--accent-teal)',
@@ -82,7 +82,7 @@ export default function Home() {
     {
       num: '03',
       title: 'HIRE',
-      desc: 'Connect verified, certified AI practitioners with companies and talent acquisition recruiters.',
+      desc: 'Industry leaders attending the Arena identify top-performing practitioners and recruit directly. Companies also access our verified talent pool to fill AI roles with certified, project-proven professionals.',
       link: '/hire',
       btnText: 'View Recruitment Options',
       color: '#c53030',
@@ -91,7 +91,7 @@ export default function Home() {
     {
       num: '04',
       title: 'INVEST',
-      desc: 'Back high-potential builders with seed capital, enterprise go-to-market channels, and mentorship.',
+      desc: 'Builders whose Arena products demonstrate genuine market potential are considered for seed investment. We back the strongest startups with capital, enterprise go-to-market channels, and ongoing mentorship.',
       link: '/invest',
       btnText: 'Learn About Seed Backing',
       color: 'var(--accent-gold)',
@@ -262,10 +262,10 @@ export default function Home() {
       <section style={{ ...styles.sectionPadding, backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
         <div className="container">
           <div style={styles.centeredHeader}>
-            <span style={styles.sectionTag}>Ecosystem Layers</span>
-            <h2 style={styles.sectionTitle}>Our End-to-End Pathway</h2>
+            <span style={styles.sectionTag}>The Model</span>
+            <h2 style={styles.sectionTitle}>Train. Build. Ship. Get Hired.</h2>
             <p style={styles.sectionDesc}>
-              Most educational institutions stop at coursework. We do not. We train, mentor live building, place graduates in roles, and invest in founders.
+              We don't stop at certificates. We take practitioners from structured training all the way through to live product demos in front of industry leaders — and the strongest ones get hired or backed.
             </p>
           </div>
 
